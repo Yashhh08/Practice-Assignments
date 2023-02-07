@@ -1,0 +1,2 @@
+This is created using fs.writeFileSync() method.
+This is appended using fs.appendFileSync() menthod.
