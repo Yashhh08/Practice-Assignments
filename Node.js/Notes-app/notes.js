@@ -13,7 +13,6 @@ const addNote = (title, body) => {
   });
 
   debugger
-  // 
 
   if (!noteFound) {
     notes.push({
