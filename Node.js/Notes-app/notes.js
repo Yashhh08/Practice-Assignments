@@ -8,14 +8,25 @@ const getNotes = () => {
 const addNote = (title, body) => {
   const notes = loadNotes();
 
-  notes.push({
-    title: title,
-    body: body,
+  const noteFound = notes.find((note) => {
+    return note.title === title;
   });
 
-  saveNotes(notes);
+  debugger
+  // 
 
-  console.log("Note added");
+  if (!noteFound) {
+    notes.push({
+      title: title,
+      body: body,
+    });
+
+    saveNotes(notes);
+
+    console.log(chalk.green.inverse("Note added"));
+  } else {
+    console.log(chalk.yellow.inverse("Note title alredy taken..!!"));
+  }
 };
 
 const saveNotes = (notes) => {
@@ -49,14 +60,34 @@ const removeNote = (title) => {
   }
 };
 
-// [
-//     { "title": "reminder", "body": "learn node.js" },
-//     { "title": "buy", "body": "purchased watch of 2000rs" },
-//     { "title": "sample", "body": "ssssss" }
-//   ]
+const listNotes = () => {
+  console.log(chalk.green.inverse("Your Notes.."));
+
+  const notes = loadNotes();
+
+  notes.forEach((note) => {
+    console.log(chalk.yellow.inverse(note.title));
+  });
+};
+
+const readNotes = (title) => {
+  const notes = loadNotes();
+
+  const noteFound = notes.find((note) => {
+    return (note.title === title);
+  });
+
+  if (noteFound) {
+    console.log(chalk.inverse(noteFound.title), noteFound.body);
+  } else {
+    console.log(chalk.red.inverse(`No note found with title ${title}`));
+  }
+};
 
 module.exports = {
   getNotes: getNotes,
   addNote: addNote,
   removeNote: removeNote,
+  listNotes: listNotes,
+  readNotes: readNotes
 };

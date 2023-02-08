@@ -1,4 +1,6 @@
 [
   { "title": "reminder", "body": "learn node.js" },
-  { "title": "buy", "body": "purchased watch of 2000rs" }
+  { "title": "buy", "body": "purchased watch of 2000rs" },
+  { "title": "watch", "body": "watch node.js tutorial" },
+  { "title": "demo", "body": "demo" }
 ]

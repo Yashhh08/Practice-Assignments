@@ -5,6 +5,8 @@ const yargs = require("yargs");
 const { removeNote } = require("./notes.js");
 const { title } = require("process");
 
+// FS : USED TO READ AND WRITE FILES
+
 fs.writeFileSync("notes.txt","This is created using fs.writeFileSync() method.\n");
 
 fs.appendFileSync("notes.txt","This is appended using fs.appendFileSync() menthod.\n");
@@ -48,16 +50,15 @@ yargs.command({
 yargs.command({
     command: "remove",
     describe: "removing a note",
+    builder:{
+        title:{
+            describe:"remove title",
+            demandOption:true,
+            type:"string"
+        }
+    },
     handler: (argv)=>{
         notes.removeNote(argv.title);
-    }
-})
-
-yargs.command({
-    command: "read",
-    describe: "reading a note",
-    handler: ()=>{
-        console.log("reading a note");
     }
 })
 
@@ -65,11 +66,27 @@ yargs.command({
     command: "list",
     describe: "listing all notes",
     handler: ()=>{
-        console.log("listing all notes");
+        notes.listNotes();
     }
 })
 
+yargs.command({
+    command: "read",
+    describe: "reading a note",
+    builder:{
+        title:{
+            describe:"read title",
+            demandOption:true,
+            type:"string"
+        }
+    },
+    handler: (argv)=>{
+        notes.readNotes(argv.title);
+    }
+})
+
+
 // console.log(yargs.argv); // { _: [ 'read' ], '$0': 'app.js' }
 
-yargs.parse();
+yargs.parse(); // required for command line argument parsing
 
