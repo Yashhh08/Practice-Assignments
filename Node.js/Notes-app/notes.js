@@ -12,8 +12,6 @@ const addNote = (title, body) => {
     return note.title === title;
   });
 
-  debugger
-
   if (!noteFound) {
     notes.push({
       title: title,
