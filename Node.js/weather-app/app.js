@@ -1,5 +1,4 @@
 const fetchMapData = require("./utils/weather");
-const process = require("process");
 const yargs = require("yargs");
 
 yargs.command({
