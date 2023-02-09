@@ -1,18 +1,23 @@
-const axios = require("axios");
+const fetchMapData = require("./utils/weather");
+const process = require("process");
+const yargs = require("yargs");
 
-const weatherApi = `http://api.weatherstack.com/current?access_key=105caddb559332dbed497a2d5ee11ee3&query=19.2434433,72.8631425`;
+yargs.command({
+  command: "weather",
+  describe: "get weather of given location",
+  builder: {
+    title: {
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler: (argv) => {
+    fetchMapData(argv.title)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  },
+});
 
-const fetchData = async () => {
-  try 
-  {
-    const data = await axios.get(weatherApi);
-
-    console.log(data.data.current);
-  } 
-  catch (err) 
-  {
-    console.log(err);
-  }
-};
-
-fetchData();
+yargs.parse();
