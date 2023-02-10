@@ -1,29 +1,66 @@
 const express = require("express");
 const path = require("path");
+const hbs = require("hbs");
 
 const app = express();
 
-// console.log(path.join(__dirname,"../public"));;
+// Define path for express config
+const publicDirPath = path.join(__dirname, "../public");
+const viewsPath = path.join(__dirname,"../templates/views");
+const partialsPath = path.join(__dirname,"../templates/partials");
 
-const publicDirPath = path.join(__dirname,"../public");
+// setup handlebar engine
+app.set("view engine", "hbs");
+app.set("views", viewsPath);
+hbs.registerPartials(partialsPath);
 
-app.use(express.static(publicDirPath)); // index.html file will load here
+// setup static directory to serve
+app.use(express.static(publicDirPath));
 
-app.get("",(req,res)=>{
-    res.send("Hello Express..!!");
+app.get("", (req, res) => {
+  res.render("index.hbs", {
+    title: "Home Page",
+    name: "Yash",
+  });
+});
+
+app.get("/about", (req, res) => {
+  res.render("about.hbs",{
+    title:"About Page",
+    name: "Yash",
+  });
+});
+
+app.get("/help", (req, res) => {
+  res.render("help.hbs", {
+    title: "Help Page",
+    name: "Yash",
+  });
+});
+
+app.get("/weather", (req, res) => {
+  res.send({
+    forecast: "forecast",
+    location: "location",
+  });
+});
+
+app.get("/help/*",(req,res)=>{
+    res.render("error.hbs",{
+        title: "404",
+        message: "Help article not found",
+        name: "yash"
+    })
 })
 
-app.get("/about",(req,res)=>{
-    res.send("about page");
+app.get("*",(req,res)=>{
+    res.render("error.hbs",{
+        title: "404",
+        message: "Page not found",
+        name: "yash"
+    })
 })
 
-app.get("/weather",(req,res)=>{
-    res.send({
-        forecast:"forecast",
-        location:"location"
-    });
-})
-
-app.listen(3000,()=>{
-    console.log("listening on port 3000");
-})
+app.listen(3000, () => {
+  console.log("listening on port 3000");
+});
