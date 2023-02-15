@@ -4,37 +4,42 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Task = require("../model/task");
 
-const userSchema = mongoose.Schema({
-  name: { type: String, required: true },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("please provide valid email !!");
-      }
-    },
-  },
-  password: {
-    type: String,
-    required: true,
-    minLength: [7, "password length should be more than 6 !!"],
-    validate(value) {
-      if (value.toLowerCase().includes("password")) {
-        throw new Error(`Password cannot contain "password" in it !!`);
-      }
-    },
-  },
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true,
+const userSchema = mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("please provide valid email !!");
+        }
       },
     },
-  ],
-});
+    password: {
+      type: String,
+      required: true,
+      minLength: [7, "password length should be more than 6 !!"],
+      validate(value) {
+        if (value.toLowerCase().includes("password")) {
+          throw new Error(`Password cannot contain "password" in it !!`);
+        }
+      },
+    },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
 userSchema.virtual("tasks", {
   ref: "Task",
