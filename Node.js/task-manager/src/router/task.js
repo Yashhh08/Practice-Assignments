@@ -45,7 +45,11 @@ router.get("/tasks", auth, async (req, res) => {
   }
 
   try {
-    const tasks = await Task.find(query).limit(limit).skip(skip).sort(sort);
+    const tasks = await Task.find(query)
+      .populate({ path: "user", select: ["name", "email"] })
+      .limit(limit)
+      .skip(skip)
+      .sort(sort);
 
     if (tasks.length > 0) {
       res.status(200).send(tasks);
