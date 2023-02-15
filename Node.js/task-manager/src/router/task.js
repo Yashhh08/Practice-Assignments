@@ -29,7 +29,6 @@ router.get("/tasks", auth, async (req, res) => {
       res.status(404).send();
     }
   } catch (err) {
-    console.log(err);
     res.status(500).send(err);
   }
 });
