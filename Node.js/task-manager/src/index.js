@@ -1,7 +1,7 @@
 const express = require("express");
-require("./db/mongoose");
-const userRouter = require("./router/user");
-const taskRouter = require("./router/task");
+require("./configs/mongoose");
+const userRouter = require("./controller/user");
+const taskRouter = require("./controller/task");
 
 const app = express();
 
