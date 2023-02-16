@@ -1,16 +1,21 @@
 const express = require("express");
 const User = require("../model/user");
 const auth = require("../middleware/auth");
+const { sendWelcomeEmail, sendDeletionMail } = require("../configs/email");
 
 const router = new express.Router();
 
 router.post("/users", async (req, res) => {
   try {
     const user = new User(req.body);
+
     const token = await user.generateAuthToken();
+
+    sendWelcomeEmail(user.name, user.email);
+
     res.status(201).send({ user, token });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({ error: err.message });
   }
 });
 
@@ -123,9 +128,11 @@ router.delete("/users", auth, async (req, res) => {
   try {
     await req.user.remove();
 
+    sendDeletionMail(req.user.name, req.user.email);
+
     res.status(200).send(req.user);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({ error: err.message });
   }
 });
 
