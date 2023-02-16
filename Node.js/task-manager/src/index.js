@@ -8,6 +8,14 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
+app.use('/', async(req,res) => {
+  try {
+    return res.status(200).json({message : "OK"})
+  }
+  catch(err) {
+    return res.status(500).send(err);
+  }
+})
 app.use(userRouter);
 app.use(taskRouter);
 
