@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   Button,
   Avatar,
+  Drawer,
 } from "@mui/material";
 import {
   Menu,
@@ -16,12 +17,20 @@ import {
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { SideBar } from "../index";
 
 function NavBar() {
   const { classes } = useStyles();
   const isMobile = useMediaQuery("(max-width:600px)");
   const theme = useTheme();
-  const isAuthenticated = true;
+  const isAuthenticated = false;
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   return (
     <>
@@ -32,7 +41,9 @@ function NavBar() {
               className={classes.menuButton}
               color="inherit"
               edge="start"
-              onClick={() => {}}
+              onClick={() => {
+                handleDrawerToggle();
+              }}
             >
               <Menu />
             </IconButton>
@@ -69,6 +80,28 @@ function NavBar() {
           </div>
         </Toolbar>
       </AppBar>
+
+      <div>
+        <nav className={classes.drawer}>
+          {isMobile ? (
+            <Drawer
+              className={classes.drawerPaper}
+              variant="temporary"
+              anchor="left"
+              open={mobileOpen}
+              onClose={() => {
+                handleDrawerToggle();
+              }}
+            >
+              <SideBar />
+            </Drawer>
+          ) : (
+            <Drawer className={classes.drawerPaper} variant="permanent">
+              <SideBar />
+            </Drawer>
+          )}
+        </nav>
+      </div>
     </>
   );
 }
