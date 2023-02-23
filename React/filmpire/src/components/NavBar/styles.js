@@ -17,6 +17,14 @@ const useStyles = makeStyles()((theme) => {
         display: "none",
       },
     },
+    drawer: {
+      [theme.breakpoints.up("sm")]: {
+        width: "240px",
+      },
+    },
+    drawerPaper: {
+      width: "240px",
+    },
   };
 });
 
