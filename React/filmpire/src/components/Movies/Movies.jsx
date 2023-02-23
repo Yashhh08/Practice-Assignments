@@ -1,7 +1,12 @@
 import React from "react";
+import { useGetMoviesQuery } from "../../services/TMDB";
 
 const Movies = () => {
-  return <></>;
+  const { data } = useGetMoviesQuery();
+
+  console.log(data);
+
+  return <>Movies</>;
 };
 
 export default Movies;
