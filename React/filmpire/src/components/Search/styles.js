@@ -6,7 +6,7 @@ const useStyles = makeStyles()((theme) => {
       [theme.breakpoints.down("sm")]: {
         display: "flex",
         justifyContent: "center",
-        width: "50%",
+        width: "40%",
       },
     },
     input: {

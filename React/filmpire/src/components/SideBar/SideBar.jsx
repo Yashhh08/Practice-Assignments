@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import useStyles from "./styles";
 import { useGetGenresQuery } from "../../services/TMDB";
 import genresIcons from "../../assets/genres/index";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { selectGenreOrCategory } from "../features/genreOrCategory";
 
 const redLogo =
@@ -35,10 +35,6 @@ function SideBar() {
   const { classes } = useStyles();
 
   const dispatch = useDispatch();
-
-  const { genreIdOrCategoryName } = useSelector(
-    (state) => state.currentGenreOrCategory
-  );
 
   const { data, isFetching } = useGetGenresQuery();
 
@@ -77,7 +73,6 @@ function SideBar() {
                   <img
                     className={classes.genreImages}
                     src={genresIcons[lable.toLowerCase()]}
-                    // src={action}
                     alt=""
                     height={30}
                   />
@@ -106,7 +101,6 @@ function SideBar() {
                   <img
                     className={classes.genreImages}
                     src={genresIcons[name.toLowerCase()]}
-                    // src={blueLogo}
                     alt=""
                     height={30}
                   />
