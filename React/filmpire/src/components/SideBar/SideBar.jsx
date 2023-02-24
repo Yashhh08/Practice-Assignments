@@ -14,23 +14,27 @@ import { Link } from "react-router-dom";
 import useStyles from "./styles";
 import { useGetGenresQuery } from "../../services/TMDB";
 import genresIcons from "../../assets/genres/index";
+import { useDispatch } from "react-redux";
+import { selectGenreOrCategory } from "../features/genreOrCategory";
+
+const redLogo =
+  "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
+
+const blueLogo =
+  "https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png";
+
+const categories = [
+  { lable: "Popular", value: "popular" },
+  { lable: "Top Rated", value: "top_rated" },
+  { lable: "Upcoming", value: "upcoming" },
+];
 
 function SideBar() {
-  const redLogo =
-    "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
-
-  const blueLogo =
-    "https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png";
-
   const theme = useTheme();
 
   const { classes } = useStyles();
 
-  const categories = [
-    { lable: "Popular", value: "popular" },
-    { lable: "Top Rated", value: "top_rated" },
-    { lable: "Upcoming", value: "upcoming" },
-  ];
+  const dispatch = useDispatch();
 
   const { data, isFetching } = useGetGenresQuery();
 
@@ -60,7 +64,11 @@ function SideBar() {
         {categories.map(({ lable, value }) => {
           return (
             <Link className={classes.links} to="/" key={value}>
-              <ListItem>
+              <ListItem
+                onClick={() => {
+                  dispatch(selectGenreOrCategory(value));
+                }}
+              >
                 <ListItemIcon>
                   <img
                     className={classes.genreImages}
@@ -85,7 +93,11 @@ function SideBar() {
         {data.genres.map(({ name, id }) => {
           return (
             <Link className={classes.links} to="/" key={id}>
-              <ListItem>
+              <ListItem
+                onClick={() => {
+                  dispatch(selectGenreOrCategory(id));
+                }}
+              >
                 <ListItemIcon>
                   <img
                     className={classes.genreImages}
