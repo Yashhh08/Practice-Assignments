@@ -3,9 +3,20 @@ import { useGetMoviesQuery } from "../../services/TMDB";
 import { MovieList } from "../index";
 import { Typography, Box } from "@mui/material";
 import { Sync } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Movies = () => {
-  const { data, error, isFetching } = useGetMoviesQuery();
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.currentGenreOrCategory
+  );
+
+  const [page, setPage] = useState(1);
+
+  const { data, error, isFetching } = useGetMoviesQuery({
+    genreIdOrCategoryName,
+    page,
+  });
 
   if (isFetching) {
     return (
