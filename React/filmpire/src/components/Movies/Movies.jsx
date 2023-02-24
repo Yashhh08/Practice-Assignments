@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 
 const Movies = () => {
-  const { genreIdOrCategoryName } = useSelector(
+  const { genreIdOrCategoryName, searchQuery } = useSelector(
     (state) => state.currentGenreOrCategory
   );
 
@@ -16,6 +16,7 @@ const Movies = () => {
   const { data, error, isFetching } = useGetMoviesQuery({
     genreIdOrCategoryName,
     page,
+    searchQuery,
   });
 
   if (isFetching) {

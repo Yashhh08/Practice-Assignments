@@ -13,7 +13,6 @@ const useStyles = makeStyles()((theme) => {
       flexGrow: "1",
       padding: "4em",
       marginTop: "10px",
-      marginLeft: "20px",
     },
   };
 });

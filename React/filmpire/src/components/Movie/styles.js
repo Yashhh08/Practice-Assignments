@@ -8,15 +8,21 @@ const useStyles = makeStyles()((theme) => {
     title: {
       color: theme.palette.text.primary,
       textOverflow: "ellipsis",
-      // width: "230px",
       textAlign: "center",
       marginTop: "10px",
       marginBottom: "0px",
       overflow: "hidden",
       whiteSpace: "nowrap",
+      width:"150px",
+      [theme.breakpoints.down("sm")]: {
+        width: "150px",
+      },
     },
     links: {
       alignItems: "center",
+      display:"flex",
+      flexDirection:"column",
+      justifyContent:"center",
       fontWeight: "bolder",
       textDecoration: "none",
       "&:hover": {
