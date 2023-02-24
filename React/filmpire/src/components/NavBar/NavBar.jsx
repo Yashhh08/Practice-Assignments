@@ -54,7 +54,7 @@ function NavBar() {
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
 
-          {!isMobile && <Search />}
+          <Search />
 
           <div>
             {!isAuthenticated ? (
@@ -79,8 +79,6 @@ function NavBar() {
               </Button>
             )}
           </div>
-
-          {/* {isMobile && <Search />} */}
         </Toolbar>
       </AppBar>
 

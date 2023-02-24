@@ -6,14 +6,14 @@ const useStyles = makeStyles()((theme) => {
       [theme.breakpoints.down("sm")]: {
         display: "flex",
         justifyContent: "center",
-        width: "100%",
+        width: "50%",
       },
     },
     input: {
       color: theme.palette.mode === "light" && "black",
       filter: theme.palette.mode === "light" && "invert(1)",
       [theme.breakpoints.down("sm")]: {
-        marginTop: "-10px",
+        marginTop: "0px",
         marginBottom: "10px",
       },
     },

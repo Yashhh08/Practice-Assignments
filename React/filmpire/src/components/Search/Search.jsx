@@ -30,8 +30,12 @@ const Search = () => {
         InputProps={{
           className: classes.input,
           startAdornment: (
-            <InputAdornment>
-              <SearchRounded />
+            <InputAdornment position="start">
+              <SearchRounded
+                onClick={() => {
+                  dispatch(searchMovie(query));
+                }}
+              />
             </InputAdornment>
           ),
         }}
