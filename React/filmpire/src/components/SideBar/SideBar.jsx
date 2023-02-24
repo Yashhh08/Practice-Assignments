@@ -1,4 +1,5 @@
 import {
+  Box,
   Divider,
   List,
   ListItem,
@@ -6,10 +7,13 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
+import { Sync } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import React from "react";
 import { Link } from "react-router-dom";
 import useStyles from "./styles";
+import { useGetGenresQuery } from "../../services/TMDB";
+import genresIcons from "../../assets/genres/index";
 
 function SideBar() {
   const redLogo =
@@ -28,12 +32,15 @@ function SideBar() {
     { lable: "Upcoming", value: "upcoming" },
   ];
 
-  const demoCategories = [
-    { lable: "Comedy", value: "comedy" },
-    { lable: "Action", value: "action" },
-    { lable: "Horror", value: "horror" },
-    { lable: "Animation", value: "animation" },
-  ];
+  const { data, isFetching } = useGetGenresQuery();
+
+  if (isFetching) {
+    return (
+      <Box display={"flex"} justifyContent={"center"}>
+        <Sync />
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -55,7 +62,13 @@ function SideBar() {
             <Link className={classes.links} to="/" key={value}>
               <ListItem>
                 <ListItemIcon>
-                  <img className={classes.genreImages} src="" alt="" />
+                  <img
+                    className={classes.genreImages}
+                    src={genresIcons[lable.toLowerCase()]}
+                    // src={action}
+                    alt=""
+                    height={30}
+                  />
                 </ListItemIcon>
                 <ListItemText>{lable}</ListItemText>
               </ListItem>
@@ -69,14 +82,20 @@ function SideBar() {
       <List>
         <ListSubheader>Genres</ListSubheader>
 
-        {demoCategories.map(({ lable, value }) => {
+        {data.genres.map(({ name, id }) => {
           return (
-            <Link className={classes.links} to="/" key={value}>
+            <Link className={classes.links} to="/" key={id}>
               <ListItem>
                 <ListItemIcon>
-                  <img className={classes.genreImages} src="" alt="" />
+                  <img
+                    className={classes.genreImages}
+                    src={genresIcons[name.toLowerCase()]}
+                    // src={blueLogo}
+                    alt=""
+                    height={30}
+                  />
                 </ListItemIcon>
-                <ListItemText>{lable}</ListItemText>
+                <ListItemText>{name}</ListItemText>
               </ListItem>
             </Link>
           );
