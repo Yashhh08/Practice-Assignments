@@ -1,12 +1,21 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetMovieQuery } from "../../services/TMDB";
-import { Box, Grid, Rating, Typography } from "@mui/material";
-import { Sync } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Grid,
+  Rating,
+  Typography,
+} from "@mui/material";
+import { Language, Movie, Sync, Theaters } from "@mui/icons-material";
 import useStyles from "./styles";
 import genreIcons from "../../assets/genres";
 import { useDispatch } from "react-redux";
 import { selectGenreOrCategory } from "../features/genreOrCategory";
+import { useGetRecommendedMoviesQuery } from "../../services/TMDB";
+import MovieList from "./../MovieList/MovieList";
 
 const MovieInformation = () => {
   const { classes } = useStyles();
@@ -15,9 +24,14 @@ const MovieInformation = () => {
 
   const { data, error, isFetching } = useGetMovieQuery(id);
 
-  const dispatch = useDispatch();
+  const {
+    data: recommendedData,
+    isfetching: isFetchingRecommended,
+  } = useGetRecommendedMoviesQuery(id);
 
-  console.log(data);
+  console.log(recommendedData);
+
+  const dispatch = useDispatch();
 
   if (isFetching) {
     return;
@@ -41,11 +55,11 @@ const MovieInformation = () => {
       </Grid>
 
       <Grid item container direction={"column"} lg={7}>
-        <Typography variant="h3" align="center" gutterBottom>
+        <Typography variant="h4" align="center" gutterBottom>
           {data?.title} {data.release_date.split("-")[0]}
         </Typography>
 
-        <Typography variant="h5" align="center" gutterBottom>
+        <Typography variant="h6" align="center" gutterBottom>
           {data?.tagline}
         </Typography>
 
@@ -95,7 +109,90 @@ const MovieInformation = () => {
             );
           })}
         </Grid>
+
+        <Typography variant="h5" gutterBottom style={{ marginTop: "10px" }}>
+          Overview
+        </Typography>
+
+        <Typography style={{ marginBottom: "2rem" }}>
+          {data?.overview}
+        </Typography>
+
+        <Typography variant="h5" gutterBottom>
+          Top Cast
+        </Typography>
+
+        <Grid item container spacing={2}>
+          {data &&
+            data.credits?.cast
+              ?.map((character, index) => {
+                return (
+                  character.profile_path && (
+                    <Grid
+                      item
+                      key={index}
+                      xs={4}
+                      md={2}
+                      component={Link}
+                      to={`actors/${character.id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <img
+                        className={classes.castImage}
+                        src={`https://image.tmdb.org/t/p/w500/${character.profile_path}`}
+                        alt={character.name}
+                      />
+
+                      <Typography
+                        color="textPrimary"
+                        style={{ textAlign: "center" }}
+                      >
+                        {character.name}
+                      </Typography>
+
+                      <Typography
+                        color="textSecondary"
+                        style={{ textAlign: "center" }}
+                      >
+                        {character.character.split("/")[0]}
+                      </Typography>
+                    </Grid>
+                  )
+                );
+              })
+              .slice(0, 6)}
+        </Grid>
+
+        <ButtonGroup className={classes.buttonsContainer} size="small">
+          <Button target="_blank" href={data?.homepage} endIcon={<Language />}>
+            WEBSITE
+          </Button>
+          <Button
+            target="_blank"
+            href={`https://www.imdb.com/title/${data?.imdb_id}`}
+            endIcon={<Movie />}
+          >
+            IMDB
+          </Button>
+          <Button target="_blank" href="#" endIcon={<Theaters />}>
+            TRAILER
+          </Button>
+        </ButtonGroup>
       </Grid>
+
+      <Box marginTop="5rem" width="100%">
+        <Typography variant="h4" align="center" gutterBottom>
+          You might also like
+        </Typography>
+
+        {recommendedData ? (
+          <MovieList movies={recommendedData} numberOfMovies={12} />
+        ) : (
+          <Box marginTop={"2rem"} textAlign={"center"}>
+            Sorry, Nothing related found..!!
+          </Box>
+        )}
+      </Box>
     </Grid>
   );
 };

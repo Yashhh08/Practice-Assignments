@@ -1,4 +1,3 @@
-import { height } from "@mui/system";
 import { makeStyles } from "tss-react/mui";
 
 const useStyles = makeStyles()((theme) => {
@@ -8,7 +7,6 @@ const useStyles = makeStyles()((theme) => {
       justifyContent: "space-around",
       margin: "10px 0 !important",
       [theme.breakpoints.down("sm")]: {
-        flexDirection: "column",
         flexWrap: "wrap",
       },
     },
@@ -41,6 +39,19 @@ const useStyles = makeStyles()((theme) => {
         padding: "0.5rem 1rem",
       },
       textDecoration: "none",
+    },
+    castImage: {
+      width: "100%",
+      height: "8em",
+      borderRadius: "10px",
+    },
+    buttonsContainer: {
+      display: "flex",
+      justifyContent: "center",
+      marginTop: "2rem",
+      [theme.breakpoints.down("sm")]: {
+        width: "245px",
+      },
     },
   };
 });
