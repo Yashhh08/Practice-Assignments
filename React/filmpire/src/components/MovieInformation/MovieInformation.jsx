@@ -35,10 +35,11 @@ const MovieInformation = () => {
   const dispatch = useDispatch();
 
   if (isFetching) {
-    return;
-    <Box>
-      <Sync />
-    </Box>;
+    return (
+      <Box>
+        <Sync />
+      </Box>
+    );
   }
 
   if (error) {
@@ -135,7 +136,7 @@ const MovieInformation = () => {
                       xs={4}
                       md={2}
                       component={Link}
-                      to={`actors/${character.id}`}
+                      to={`/actors/${character.id}`}
                       style={{ textDecoration: "none" }}
                     >
                       <img
@@ -176,8 +177,6 @@ const MovieInformation = () => {
             IMDB
           </Button>
           <Button
-            // target="_blank"
-            // href="#"
             endIcon={<Theaters />}
             onClick={() => {
               setModalOpen(!modalOpen);
@@ -210,15 +209,13 @@ const MovieInformation = () => {
           setModalOpen(!modalOpen);
         }}
       >
-        {data?.videos?.results?.length > 0 && (
-          <iframe
-            className={classes.videos}
-            autoPlay
-            title="Trailer"
-            src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
-            allow="autoplay"
-          />
-        )}
+        <iframe
+          className={classes.videos}
+          autoPlay
+          title="Trailer"
+          src={`https://www.youtube.com/embed/${data?.videos?.results[0]?.key}`}
+          allow="autoplay"
+        />
       </Modal>
     </Grid>
   );
