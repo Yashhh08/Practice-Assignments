@@ -11,7 +11,6 @@ const useStyles = makeStyles()((theme) => {
       },
     },
     menuButton: {
-      // marginLeft: theme.spacing(2),
       [theme.breakpoints.up("sm")]: {
         display: "none",
       },
@@ -23,6 +22,12 @@ const useStyles = makeStyles()((theme) => {
     },
     drawerPaper: {
       width: "240px",
+    },
+    themeIcon: {
+      marginLeft: "10px",
+      [theme.breakpoints.down("sm")]: {
+        marginLeft: "0px",
+      },
     },
   };
 });

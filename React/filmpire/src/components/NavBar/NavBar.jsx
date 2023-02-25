@@ -50,7 +50,11 @@ function NavBar() {
             </IconButton>
           )}
 
-          <IconButton color="inherit" onClick={() => {}}>
+          <IconButton
+            className={classes.themeIcon}
+            color="inherit"
+            onClick={() => {}}
+          >
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
 
