@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetMovieQuery } from "../../services/TMDB";
 import {
@@ -6,6 +6,7 @@ import {
   Button,
   ButtonGroup,
   Grid,
+  Modal,
   Rating,
   Typography,
 } from "@mui/material";
@@ -20,6 +21,8 @@ import MovieList from "./../MovieList/MovieList";
 const MovieInformation = () => {
   const { classes } = useStyles();
 
+  const [modalOpen, setModalOpen] = useState(false);
+
   const { id } = useParams();
 
   const { data, error, isFetching } = useGetMovieQuery(id);
@@ -28,8 +31,6 @@ const MovieInformation = () => {
     data: recommendedData,
     isfetching: isFetchingRecommended,
   } = useGetRecommendedMoviesQuery(id);
-
-  console.log(recommendedData);
 
   const dispatch = useDispatch();
 
@@ -174,7 +175,14 @@ const MovieInformation = () => {
           >
             IMDB
           </Button>
-          <Button target="_blank" href="#" endIcon={<Theaters />}>
+          <Button
+            // target="_blank"
+            // href="#"
+            endIcon={<Theaters />}
+            onClick={() => {
+              setModalOpen(!modalOpen);
+            }}
+          >
             TRAILER
           </Button>
         </ButtonGroup>
@@ -193,6 +201,25 @@ const MovieInformation = () => {
           </Box>
         )}
       </Box>
+
+      <Modal
+        className={classes.modal}
+        closeAfterTransition
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(!modalOpen);
+        }}
+      >
+        {data?.videos?.results?.length > 0 && (
+          <iframe
+            className={classes.videos}
+            autoPlay
+            title="Trailer"
+            src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
+            allow="autoplay"
+          />
+        )}
+      </Modal>
     </Grid>
   );
 };
