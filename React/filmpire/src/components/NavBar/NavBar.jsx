@@ -17,11 +17,13 @@ import {
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { SideBar } from "../index";
 import Search from "../Search/Search";
+import { ColorModeContext } from "../utils/ToggleColorMode";
 
 function NavBar() {
+  const colorMode = useContext(ColorModeContext);
   const { classes } = useStyles();
   const isMobile = useMediaQuery("(max-width:600px)");
   const theme = useTheme();
@@ -53,7 +55,9 @@ function NavBar() {
           <IconButton
             className={classes.themeIcon}
             color="inherit"
-            onClick={() => {}}
+            onClick={() => {
+              colorMode.toggleColorMode();
+            }}
           >
             {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
