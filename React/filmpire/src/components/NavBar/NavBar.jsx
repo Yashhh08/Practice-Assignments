@@ -102,7 +102,7 @@ function NavBar() {
                 handleDrawerToggle();
               }}
             >
-              <SideBar />
+              <SideBar setMobileOpen={setMobileOpen} />
             </Drawer>
           ) : (
             <Drawer className={classes.drawerPaper} variant="permanent">
