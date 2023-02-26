@@ -14,6 +14,13 @@ const useStyles = makeStyles()((theme) => {
       borderRadius: "20px",
       boxShadow: "0.5em 1em 1em rgb(64,64,70)",
       width: "80%",
+      [theme.breakpoints.down("md")]: {
+        width: "50%",
+        margin: "0 auto",
+        height: "350px",
+        display: "flex",
+        marginBottom: "30px",
+      },
       [theme.breakpoints.down("sm")]: {
         width: "100%",
         margin: "0 auto",
