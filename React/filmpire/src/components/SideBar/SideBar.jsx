@@ -9,13 +9,14 @@ import {
 } from "@mui/material";
 import { Sync } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useStyles from "./styles";
 import { useGetGenresQuery } from "../../services/TMDB";
 import genresIcons from "../../assets/genres/index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectGenreOrCategory } from "../features/genreOrCategory";
+import { genreOrCategory } from "./../features/genreOrCategory";
 
 const redLogo =
   "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
@@ -29,7 +30,7 @@ const categories = [
   { lable: "Upcoming", value: "upcoming" },
 ];
 
-function SideBar() {
+function SideBar({ setMobileOpen }) {
   const theme = useTheme();
 
   const { classes } = useStyles();
@@ -67,6 +68,7 @@ function SideBar() {
               <ListItem
                 onClick={() => {
                   dispatch(selectGenreOrCategory(value));
+                  setMobileOpen(false);
                 }}
               >
                 <ListItemIcon>
@@ -95,6 +97,7 @@ function SideBar() {
               <ListItem
                 onClick={() => {
                   dispatch(selectGenreOrCategory(id));
+                  setMobileOpen(false);
                 }}
               >
                 <ListItemIcon>
