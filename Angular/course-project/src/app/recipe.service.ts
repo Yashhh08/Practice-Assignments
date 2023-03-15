@@ -1,13 +1,28 @@
 import { EventEmitter } from "@angular/core";
 import { Recipe } from "./recipes/recipe.model";
+import { Ingredient } from "./shared/ingredient.model";
 
 export class RecipeService {
 
     recipeSelected = new EventEmitter<Recipe>();
 
     private recipes: Recipe[] = [
-        new Recipe("Sample Recipe 1", "descripion 1", "https://media.istockphoto.com/id/1196705449/photo/wooden-vintage-rabbit-a-wooden-vintage-rabbit-toy-is-sitting-on-the-old-books-with-pastel.jpg?s=612x612&w=0&k=20&c=yUZwlPMKbDLTNCM2yifwamZN6LMzrumwSnaBQiQJRLU="),
-        new Recipe("Sample Recipe 2", "descripion 2", "https://media.istockphoto.com/id/1196705449/photo/wooden-vintage-rabbit-a-wooden-vintage-rabbit-toy-is-sitting-on-the-old-books-with-pastel.jpg?s=612x612&w=0&k=20&c=yUZwlPMKbDLTNCM2yifwamZN6LMzrumwSnaBQiQJRLU=")
+        new Recipe(
+            "Butter Chiken",
+            "Butter chiken by chef Ranveer",
+            "https://www.licious.in/blog/wp-content/uploads/2020/10/butter-chicken-.jpg",
+            [
+                new Ingredient("Chiken", 1),
+                new Ingredient("Onion", 1)
+            ]),
+        new Recipe(
+            "Butter Panner",
+            "The best Butter Panner you will ever taste",
+            "https://i2.wp.com/fforflavour.com/wp-content/uploads/2018/07/IMG_5518.jpg?w=1140&ssl=1",
+            [
+                new Ingredient("Panner", 1),
+                new Ingredient("Onion", 1)
+            ])
     ]
 
     getRecipes() {
