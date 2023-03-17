@@ -1,0 +1,32 @@
+<div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="projectForm">
+      <div>
+          <label for="email">Project Name</label>
+          <br>
+          <input type="email" name="email" formControlName="projectName">
+          <br>
+          <span style="color: red;" *ngIf="!projectForm.get('projectName').valid && projectForm.get('projectName').touched">Please enter valid email!</span>
+      </div>
+      <br>
+      <div>
+          <label for="email">Email</label>
+          <br>
+          <input type="email" name="email" formControlName="email">
+          <br>
+          <span style="color: red;" *ngIf="!projectForm.get('email').valid && projectForm.get('email').touched">Please enter valid password!</span>
+      </div>
+      <br>
+      <div>
+          <label for="status">Project Status</label>
+          <br>
+          <select name="status" id="status" formControlName="status">
+              <option value="stable">Stable</option>
+              <option value="critical">Critical</option>
+              <option value="finished">Finished</option>
+          </select>
+      </div>
+      <br>
+      <p style="color: red;" *ngIf="!projectForm.valid && projectForm.touched">please enter valid details!</p>
+      <button type="submit">Submit</button>
+  </form>
+</div>
