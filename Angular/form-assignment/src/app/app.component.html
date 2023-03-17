@@ -1,0 +1,32 @@
+<div>
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div>
+            <label for="email">Email</label>
+            <br>
+            <input type="email" name="email" ngModel required email #email="ngModel">
+            <br>
+            <span style="color: red;" *ngIf="!email.valid && email.touched">Please enter valid email!</span>
+        </div>
+        <br>
+        <div>
+            <label for="password">password</label>
+            <br>
+            <input type="password" name="password" ngModel required #password="ngModel">
+            <br>
+            <span style="color: red;" *ngIf="!password.valid && password.touched">Please enter valid password!</span>
+        </div>
+        <br>
+        <div>
+            <label for="subscription">Select subscription</label>
+            <br>
+            <select name="subscription" id="subscription" [ngModel]="selectedSubscription">
+                <option value="basic">Basic</option>
+                <option value="advance">Advance</option>
+                <option value="pro">Pro</option>
+            </select>
+        </div>
+        <br>
+        <p style="color: red;" *ngIf="!form.valid && form.touched">please enter valid details!</p>
+        <button [disabled]="!form.valid" type="submit">Submit</button>
+    </form>
+</div>
