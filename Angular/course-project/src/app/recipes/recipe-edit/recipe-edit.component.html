@@ -1,1 +1,26 @@
-<p>recipe-edit works!</p>
+<div>
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="name">Name</label>
+            <br>
+            <input type="text" name="name" formControlName="name">
+        </div>
+        <br>
+        <div>
+            <label for="imageUrl">ImageURL</label>
+            <br>
+            <input type="text" name="imageUrl" formControlName="imageUrl">
+        </div>
+        <br>
+        <div>
+            <label for="description">Description</label>
+            <br>
+            <textarea name="description" cols="50" rows="4" formControlName="description"></textarea>
+        </div>
+
+        <div>
+            <button type="submit">Save</button>
+            <button type="button" (click)="onCancle()">Cancle</button>
+        </div>
+    </form>
+</div>
