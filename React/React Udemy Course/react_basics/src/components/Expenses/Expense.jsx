@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ExpenseItem from "./ExpenseItem";
 import "./Expense.css";
 import ExpensesFilter from "./ExpensesFilter";
-import ExpensesChart from "./ExpensesChart";
+import ExpensesChart from "./../Chart/ExpensesChart";
 
 const Expense = (props) => {
   const [selectedYear, setSelectedYear] = useState("2022");
