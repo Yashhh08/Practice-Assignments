@@ -1,19 +1,32 @@
 "use client";
 
-import { UserButton, useUser } from "@clerk/nextjs";
+import Navbar from "@/components/shared/navbar/Navbar";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { useState } from "react";
 
 export default function Home() {
-  const { user } = useUser();
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   return (
-    <div>
-      <h1>NEXT.JS 13</h1>
+    <>
+      <div className="flex flex-col gap-5">
+        <div>
+          <h1 className="text-3xl font-bold">All Questions</h1>
+          <Button className="bg-gradient-to-r from-orange-500 to-orange-400">Ask a Question</Button>
+        </div>
+      </div>
 
-      <UserButton afterSignOutUrl="/" />
+      {/* <div className="flex justify-center items-center p-2">
+        <Calendar mode="single" selected={date} onSelect={setDate} />
+      </div>
 
-      <h2>
-        Hello {user?.firstName ? user.firstName : "user"}, Welcome to NEXT.JS
-      </h2>
-    </div>
+      <p className="text-center p-4">{date?.toDateString()}</p>
+
+      <div className="flex justify-center items-center gap-5 p-4">
+        <Button variant={"secondary"}>Click Me</Button>
+        <Button>Learn more</Button>
+      </div> */}
+    </>
   );
 }
