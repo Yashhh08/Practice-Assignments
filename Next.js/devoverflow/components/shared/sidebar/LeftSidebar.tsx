@@ -34,7 +34,7 @@ const LeftSidebar = () => {
                 width={20}
                 className="invert-colors"
               />
-              <p className="text-lg sm:max-xl:hidden">{item.label}</p>
+              <p className="text-lg max-lg:hidden">{item.label}</p>
             </Link>
           );
         })}
