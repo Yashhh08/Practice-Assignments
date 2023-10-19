@@ -25,7 +25,7 @@ const LeftSidebar = () => {
                 isActive
                   ? "bg-gradient-to-r from-orange-500 to-orange-400 rounded-lg font-bold"
                   : ""
-              } flex justify-start items-center gap-4 p-4`}
+              } flex justify-start items-center gap-4 p-4 rounded-md hover:bg-gray-300 dark:hover:bg-secondary`}
             >
               <Image
                 src={item.imgURL}

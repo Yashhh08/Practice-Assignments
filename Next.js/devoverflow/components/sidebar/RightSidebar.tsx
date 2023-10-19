@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { popularTags, topQuestions } from "@/constants/constants";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-import RenderTag from "../RenderTag";
 
 const RightSidebar = () => {
   return (
@@ -12,7 +12,11 @@ const RightSidebar = () => {
 
         {topQuestions.map((q) => {
           return (
-            <div key={q} className="flex justify-between items-center gap-3">
+            <Link
+              href={""}
+              key={q}
+              className="flex justify-between items-center gap-3"
+            >
               <p>{q}</p>
               <Image
                 src={"/assets/icons/chevron-right.svg"}
@@ -21,7 +25,7 @@ const RightSidebar = () => {
                 width={20}
                 className="invert dark:invert-0"
               />
-            </div>
+            </Link>
           );
         })}
       </div>
@@ -31,7 +35,11 @@ const RightSidebar = () => {
 
         {popularTags.map((tag) => {
           return (
-            <div key={tag.tag} className="flex justify-between items-center">
+            <Link
+              href={""}
+              key={tag.tag}
+              className="flex justify-between items-center"
+            >
               <Button
                 variant={"secondary"}
                 size={"sm"}
@@ -40,7 +48,7 @@ const RightSidebar = () => {
                 {tag.tag}
               </Button>
               <div>{tag.number}</div>
-            </div>
+            </Link>
           );
         })}
       </div>
