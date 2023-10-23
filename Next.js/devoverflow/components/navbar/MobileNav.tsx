@@ -55,7 +55,7 @@ const MobileNav = () => {
           height={24}
           width={24}
           alt="Menu"
-          className="ml-1 no-focus invert-colors sm:hidden"
+          className="ml-1 no-focus invert-colors md:hidden"
         />
       </SheetTrigger>
       <SheetContent side={"left"} className="h-full overflow-auto border-none">

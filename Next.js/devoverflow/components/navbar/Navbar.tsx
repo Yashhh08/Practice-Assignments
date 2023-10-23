@@ -27,7 +27,7 @@ const Navbar = () => {
             />
             <AvatarFallback>DevFlow</AvatarFallback>
           </Avatar>
-          <h2 className="h2-bold font-mono max-sm:hidden">
+          <h2 className="h2-bold font-mono max-md:hidden">
             Dev<span className="text-primary">Overflow</span>
           </h2>
         </Link>

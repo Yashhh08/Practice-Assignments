@@ -10,7 +10,7 @@ const LeftSidebar = () => {
   const pathName = usePathname();
 
   return (
-    <div className="flex h-screen px-10 pt-28 flex-col gap-14 items-start bg-slate-100 dark:bg-neutral-900 max-sm:hidden">
+    <div className="flex h-screen px-10 pt-28 flex-col gap-14 items-start bg-slate-100 dark:bg-neutral-900  max-md:hidden">
       <section className="flex flex-col gap-4">
         {sidebarLinks.map((item) => {
           const isActive =
