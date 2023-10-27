@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import NoResults from "@/components/NoResults";
 import QuestionCard from "@/components/cards/QuestionCard";
+import Link from "next/link";
 
 const questions = [
   {
@@ -74,12 +75,14 @@ export default function Home() {
         <div className="flex justify-between items-center gap-2 max-sm:flex-col-reverse">
           <h1 className="text-3xl font-bold">All Questions</h1>
 
-          <Button
-            size={"sm"}
-            className="bg-gradient-to-r from-orange-500 to-orange-400"
-          >
-            Ask a Question
-          </Button>
+          <Link href={"/ask-question"}>
+            <Button
+              size={"sm"}
+              className="bg-gradient-to-r from-orange-500 to-orange-400"
+            >
+              Ask a Question
+            </Button>
+          </Link>
         </div>
 
         <div className="flex justify-between items-center gap-5 max-sm:flex-col">

@@ -40,7 +40,6 @@ export default function RootLayout({
             formButtonPrimary: "primary-gradient",
             footerActionLink: "primary-text-gradient hover:text-primary-500",
           },
-          // baseTheme: dark,
         }}
       >
         <html lang="en">

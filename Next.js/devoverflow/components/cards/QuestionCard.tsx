@@ -32,7 +32,7 @@ interface Props {
 const QuestionCard = (props: Props) => {
   return (
     <Card className="w-full py-9 px-[45px] border-none bg-slate-100 dark:bg-zinc-900">
-      <Link href={""}>
+      <Link href={"/"}>
         <h3 className="text-xl font-semibold line-clamp-1 max-sm:line-clamp-2 max-sm:justify-center">
           {props.question.title}
         </h3>

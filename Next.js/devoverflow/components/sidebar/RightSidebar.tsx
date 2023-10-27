@@ -13,7 +13,7 @@ const RightSidebar = () => {
         {topQuestions.map((q) => {
           return (
             <Link
-              href={""}
+              href={"/"}
               key={q}
               className="flex justify-between items-center gap-3"
             >
@@ -36,7 +36,7 @@ const RightSidebar = () => {
         {popularTags.map((tag) => {
           return (
             <Link
-              href={""}
+              href={"/"}
               key={tag.tag}
               className="flex justify-between items-center"
             >
