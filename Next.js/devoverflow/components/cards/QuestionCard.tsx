@@ -14,11 +14,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { getTimeStamp, formatAndDivideNumber } from "../../lib/utils";
 
-interface Question {
+interface QuestionProps {
   _id: string;
   title: string;
-  tags: { _id: string; title: string }[];
-  author: { _id: string; name: string; picture: string };
+  tags: {
+    _id: string;
+    name: string;
+  }[];
+  author: {
+    _id: string;
+    name: string;
+    picture: string;
+  };
   upvotes: number;
   views: number;
   answers: Array<object>;
@@ -26,35 +33,46 @@ interface Question {
 }
 
 interface Props {
-  question: Question;
+  question: QuestionProps;
 }
 
-const QuestionCard = (props: Props) => {
+const QuestionCard = ({
+  _id,
+  title,
+  tags,
+  author,
+  upvotes,
+  views,
+  answers,
+  createdAt,
+}: QuestionProps) => {
   return (
     <Card className="w-full py-9 px-[45px] border-none bg-slate-100 dark:bg-zinc-900">
       <Link href={"/"}>
         <h3 className="text-xl font-semibold line-clamp-1 max-sm:line-clamp-2 max-sm:justify-center">
-          {props.question.title}
+          {title}
         </h3>
       </Link>
 
       <div className="flex gap-2 mt-[14px] mb-[24px]">
-        {props.question.tags.map((tag) => {
-          return <RenderTag key={tag._id} _id={tag._id} name={tag.title} />;
+        {tags.map((tag) => {
+          return <RenderTag key={tag._id} _id={tag._id} name={tag.name} />;
         })}
       </div>
 
       <div className="flex justify-between items-center text-center flex-wrap gap-5">
         <div className="flex items-center gap-2 flex-wrap">
-          <div className="flex justify-center items-center gap-1">
-            <Avatar className="w-5 h-5">
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <p className="text-sm font-medium">{props.question.author.name}</p>
-          </div>
+          <Link href={`/profile/${author._id}`}>
+            <div className="flex justify-center items-center gap-1">
+              <Avatar className="w-5 h-5">
+                <AvatarImage src={author.picture} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <p className="text-sm font-medium">{author.name}</p>
+            </div>
+          </Link>
           <p className="text-xs font-normal">
-            {`asked ${getTimeStamp(props.question.createdAt)}`}
+            {`asked ${getTimeStamp(createdAt)}`}
           </p>
         </div>
 
@@ -67,7 +85,7 @@ const QuestionCard = (props: Props) => {
               alt="like"
             />
             <p className="text-xs font-medium">{`${formatAndDivideNumber(
-              props.question.upvotes
+              upvotes
             )} Votes`}</p>
           </div>
           <div className="flex gap-1">
@@ -78,9 +96,7 @@ const QuestionCard = (props: Props) => {
               alt="msg"
             />
             <p className="text-xs font-medium">
-              {`${formatAndDivideNumber(
-                props.question.answers.length
-              )} Answers`}
+              {`${formatAndDivideNumber(answers.length)} Answers`}
             </p>
           </div>
           <div className="flex gap-1">
@@ -91,7 +107,7 @@ const QuestionCard = (props: Props) => {
               alt="eye"
             />
             <p className="text-xs font-medium">{`${formatAndDivideNumber(
-              props.question.views
+              views
             )} Views`}</p>
           </div>
         </div>

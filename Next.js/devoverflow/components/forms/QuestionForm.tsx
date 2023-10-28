@@ -20,8 +20,8 @@ import { Input } from "@/components/ui/input";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
-import { connectToDatabase } from "@/lib/mongoose";
-import { demo } from "@/lib/actions/question.action";
+import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -33,8 +33,13 @@ const formSchema = z.object({
 
 const type: any = "create";
 
-const QuestionForm = () => {
+interface Props {
+  userId: string;
+}
+
+const QuestionForm = ({ userId }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const editorRef = useRef(null);
 
@@ -50,13 +55,16 @@ const QuestionForm = () => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     setIsSubmitting(true);
 
     try {
-      console.log(values);
-      await demo();
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(userId),
+      });
+
       form.reset();
     } catch (error) {
     } finally {
@@ -69,7 +77,7 @@ const QuestionForm = () => {
       e.preventDefault();
 
       const tagInput = e.target as HTMLInputElement;
-      const tagValue = tagInput.value.trim();
+      const tagValue = tagInput.value.trim().toLowerCase();
 
       if (tagValue.length > 15) {
         return form.setError("tags", {
@@ -83,7 +91,10 @@ const QuestionForm = () => {
         tagInput.value = "";
         form.clearErrors("tags");
       } else {
-        form.setError("tags", { type: "required", message: "Alredy exist" });
+        form.setError("tags", {
+          type: "validate",
+          message: "Alredy exist",
+        });
         form.trigger();
       }
     }
@@ -191,10 +202,10 @@ const QuestionForm = () => {
                   <Input onKeyDown={(e) => handleKeyDown(e, field)} />
 
                   {field.value.length > 0 && (
-                    <div className="flex justify-start items-center gap-2 flex-wrap">
+                    <div className="flex justify-start items-center gap-2 flex-wrap uppercase">
                       {field.value.map((tag) => {
                         return (
-                          <Badge key={tag} className="">
+                          <Badge key={tag}>
                             {tag}
                             <Image
                               src={"/assets/icons/close.svg"}

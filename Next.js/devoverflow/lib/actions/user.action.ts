@@ -4,6 +4,7 @@ import User, { IUser } from "@/database/user.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
+import { notFound } from "next/navigation";
 
 export interface CreateUserParams {
     clerkId: string;
@@ -34,9 +35,10 @@ export async function getUserById(userId: string) {
         const user = await User.findOne({ clerkId: userId });
 
         if (!user) {
-            throw new Error("User not found");
+            notFound();
         }
 
+        return user;
     }
     catch (error) {
         console.log(error);
@@ -73,7 +75,8 @@ export async function deleteUser(userId: string) {
         const user = await User.findOneAndDelete({ "clerkId": userId })
 
         if (!user) {
-            throw new Error("No user found");
+            notFound();
+
         }
 
         // Delete user from database
