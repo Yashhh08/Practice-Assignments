@@ -1,3 +1,5 @@
+"use server"
+
 import User, { IUser } from "@/database/user.model";
 import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
@@ -15,7 +17,7 @@ export async function createUser(userData: CreateUserParams) {
     try {
         connectToDatabase();
 
-        const user = await User.create({ userData })
+        const user = await User.create(userData);
 
         return user;
     }
