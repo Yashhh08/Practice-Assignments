@@ -35,7 +35,7 @@ export async function getUserById(userId: string) {
         const user = await User.findOne({ clerkId: userId });
 
         if (!user) {
-            notFound();
+            throw new Error("No user found");
         }
 
         return user;
@@ -75,8 +75,7 @@ export async function deleteUser(userId: string) {
         const user = await User.findOneAndDelete({ "clerkId": userId })
 
         if (!user) {
-            notFound();
-
+            throw new Error("No user found");
         }
 
         // Delete user from database
