@@ -8,7 +8,7 @@ const page = async () => {
   const { userId } = auth();
 
   if (!userId) {
-    redirect("/sign-in");
+    return redirect("/sign-in");
   }
 
   const user = await getUserById(userId);
