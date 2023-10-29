@@ -66,6 +66,8 @@ const QuestionForm = ({ userId }: Props) => {
       });
 
       form.reset();
+
+      router.push("/");
     } catch (error) {
     } finally {
       setIsSubmitting(false);

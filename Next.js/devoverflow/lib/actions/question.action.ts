@@ -5,7 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import User, { IUser } from "@/database/user.model";
 import Question from "@/database/question.model";
 import Tag from "@/database/tag.model";
-import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export interface CreateQuestionParams {
     title: string;
@@ -16,7 +16,7 @@ export interface CreateQuestionParams {
 
 export async function createQuestion(que: CreateQuestionParams) {
     try {
-        connectToDatabase();
+        await connectToDatabase();
 
         const question = await Question.create({
             title: que.title,
@@ -42,8 +42,7 @@ export async function createQuestion(que: CreateQuestionParams) {
 
         await Question.findByIdAndUpdate(question._id, { tags: allTags });
 
-        redirect("/");
-
+        revalidatePath("/");
     } catch (error) {
         console.log(error);
         throw error;
@@ -52,11 +51,13 @@ export async function createQuestion(que: CreateQuestionParams) {
 
 export async function getQuestions() {
     try {
-        connectToDatabase();
+        await connectToDatabase();
+
+        await User.find();
 
         const questions = await Question.find()
             .populate({ path: "tags", model: "Tag" })
-            .populate({ path: "author", model: "User", })
+            .populate({ path: "author", model: "User" })
             .sort({ createdAt: -1 })
 
         return questions;

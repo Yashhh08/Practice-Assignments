@@ -16,7 +16,7 @@ export interface CreateUserParams {
 
 export async function createUser(userData: CreateUserParams) {
     try {
-        connectToDatabase();
+        await connectToDatabase();
 
         const user = await User.create(userData);
 
@@ -30,7 +30,7 @@ export async function createUser(userData: CreateUserParams) {
 
 export async function getUserById(userId: string) {
     try {
-        connectToDatabase();
+        await connectToDatabase();
 
         const user = await User.findOne({ clerkId: userId });
 
@@ -55,7 +55,7 @@ export interface UpdateUserParams {
 export async function updateUser(params: UpdateUserParams) {
 
     try {
-        connectToDatabase();
+        await connectToDatabase();
 
         await User.findOneAndUpdate({ "clerkId": params.clerkId }, params.updateData);
 
@@ -69,8 +69,7 @@ export async function updateUser(params: UpdateUserParams) {
 
 export async function deleteUser(userId: string) {
     try {
-
-        connectToDatabase();
+        await connectToDatabase();
 
         const user = await User.findOneAndDelete({ "clerkId": userId })
 
