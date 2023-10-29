@@ -13,60 +13,6 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
 
-// const questions = [
-//   {
-//     _id: "1",
-//     title: "How to create a React component?",
-//     tags: [
-//       { _id: "tag1", title: "React" },
-//       { _id: "tag2", title: "JavaScript" },
-//     ],
-//     author: {
-//       _id: "user1",
-//       name: "John Doe",
-//       picture: "user1.jpg",
-//     },
-//     upvotes: 1221300,
-//     views: 120,
-//     answers: [],
-//     createdAt: new Date("2023-10-21"),
-//   },
-//   {
-//     _id: "2",
-//     title: "What are the best practices for responsive web design?",
-//     tags: [
-//       { _id: "tag3", title: "Web Design" },
-//       { _id: "tag4", title: "CSS" },
-//     ],
-//     author: {
-//       _id: "user2",
-//       name: "Jane Smith",
-//       picture: "user2.jpg",
-//     },
-//     upvotes: 20,
-//     views: 150,
-//     answers: [],
-//     createdAt: new Date("2023-09-09"),
-//   },
-//   {
-//     _id: "3",
-//     title: "How to use Redux for state management in React?",
-//     tags: [
-//       { _id: "tag1", title: "React" },
-//       { _id: "tag5", title: "Redux" },
-//     ],
-//     author: {
-//       _id: "user3",
-//       name: "Alice Johnson",
-//       picture: "user3.jpg",
-//     },
-//     upvotes: 15,
-//     views: 180,
-//     answers: [],
-//     createdAt: new Date("2023-09-08"),
-//   },
-// ];
-
 export default async function Home() {
   const questions = await getQuestions();
 

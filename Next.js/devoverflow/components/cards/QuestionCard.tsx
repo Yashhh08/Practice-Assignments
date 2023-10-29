@@ -1,13 +1,6 @@
 import React from "react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import RenderTag from "../ui/RenderTag";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
@@ -54,7 +47,7 @@ const QuestionCard = ({
         </h3>
       </Link>
 
-      <div className="flex gap-2 mt-[14px] mb-[24px]">
+      <div className="flex gap-2 mt-[14px] mb-[24px] flex-wrap">
         {tags.map((tag) => {
           return <RenderTag key={tag._id} _id={tag._id} name={tag.name} />;
         })}
