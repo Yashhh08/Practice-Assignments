@@ -1,7 +1,7 @@
 import React from "react";
 
 const page = () => {
-  return <div>Tags Page</div>;
+  return <div>Tags which can add later</div>;
 };
 
 export default page;
