@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const page = async () => {
+const Page = async () => {
   const { userId } = auth();
 
   if (!userId) {
@@ -21,4 +21,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default Page;

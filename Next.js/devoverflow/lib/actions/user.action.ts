@@ -28,6 +28,20 @@ export async function createUser(userData: CreateUserParams) {
     }
 }
 
+export async function getAllUsers() {
+    try {
+        await connectToDatabase();
+
+        const users = await User.find().sort({ createdAt: -1 });
+
+        return users;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
 export async function getUserById(userId: string) {
     try {
         await connectToDatabase();
