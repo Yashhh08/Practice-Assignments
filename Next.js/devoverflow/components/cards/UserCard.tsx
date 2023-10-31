@@ -15,7 +15,7 @@ const UserCard = ({ user }: { user: any }) => {
     <Link href={`/profile/${user._id}`}>
       <Card
         key={user._id}
-        className="w-[260px] h-[280px] border-none p-7 flex flex-col gap-5 justify-center items-center"
+        className="w-[260px] h-[280px] border-none p-7 flex flex-col gap-5 justify-center items-center shadow-md"
       >
         <div className="flex flex-col justify-center items-center gap-4">
           <Avatar className="w-24 h-24">
