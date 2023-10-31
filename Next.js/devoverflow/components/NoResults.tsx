@@ -25,7 +25,7 @@ const NoResults = (props: Props) => {
         alt="noResults"
         height={200}
         width={200}
-        className="hidden dark:flex"
+        className="hidden dark:block"
       />
 
       <h2 className="text-2xl font-bold">{props.title}</h2>
