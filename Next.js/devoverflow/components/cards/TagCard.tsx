@@ -10,7 +10,7 @@ const TagCard = ({ tag }: any) => {
         <Button
           variant={"secondary"}
           size={"sm"}
-          className="font-bold text-base"
+          className="font-bold text-sm uppercase"
         >
           {tag.name}
         </Button>
