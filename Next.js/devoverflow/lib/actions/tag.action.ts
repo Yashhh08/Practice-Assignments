@@ -7,7 +7,7 @@ export async function getAllTags() {
     try {
         connectToDatabase();
 
-        const tags = Tag.find().sort({ createdAt: -1 })
+        const tags = Tag.find().sort({ createdOn: -1 })
 
         return tags;
     }
