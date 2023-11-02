@@ -41,7 +41,7 @@ const QuestionCard = ({
 }: QuestionProps) => {
   return (
     <Card className="w-full py-9 px-[45px] border-none bg-slate-100 dark:bg-zinc-900">
-      <Link href={"/"}>
+      <Link href={`/question/${_id}`}>
         <h3 className="text-xl font-semibold line-clamp-1 max-sm:line-clamp-2 max-sm:justify-center">
           {title}
         </h3>

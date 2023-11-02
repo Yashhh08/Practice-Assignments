@@ -67,3 +67,89 @@ export async function getQuestions() {
         throw error;
     }
 }
+
+export async function getQuestionById(id: string) {
+    try {
+        connectToDatabase();
+
+        const question = await Question.findById(id)
+            .populate({ path: "tags", })
+            .populate({ path: "author" });
+
+        return question;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export interface QuestionVoteParams {
+    questionId: string;
+    userId: string;
+    path: string;
+}
+
+export async function upvoteQuestion(params: QuestionVoteParams) {
+
+    try {
+        connectToDatabase();
+
+        const question = await Question.findById(params.questionId);
+
+        if (!question) {
+            throw new Error("No user found");
+        }
+
+        const hasUpVoted = question.upvotes.includes(params.userId);
+
+        if (hasUpVoted) {
+            question.upvotes.pull(params.userId);
+        }
+        else {
+            question.upvotes.push(params.userId);
+            question.downvotes.pull(params.userId);
+        }
+
+        question.save();
+
+        revalidatePath(params.path);
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
+}
+
+export async function downvoteQuestion(params: QuestionVoteParams) {
+
+    try {
+        connectToDatabase();
+
+        const question = await Question.findById(params.questionId);
+
+        if (!question) {
+            throw new Error("No user found");
+        }
+
+        const hasDownvoted = question.downvotes.includes(params.userId);
+
+
+        if (hasDownvoted) {
+            question.downvotes.pull(params.userId);
+        }
+        else {
+            question.downvotes.push(params.userId);
+            question.upvotes.pull(params.userId);
+        }
+
+        question.save();
+
+        revalidatePath(params.path);
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
+}
