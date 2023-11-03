@@ -22,6 +22,7 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -42,6 +43,7 @@ const QuestionForm = ({ userId }: Props) => {
   const router = useRouter();
 
   const editorRef = useRef(null);
+  const { theme } = useTheme();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -66,6 +68,11 @@ const QuestionForm = ({ userId }: Props) => {
       });
 
       form.reset();
+
+      if (editorRef.current) {
+        const editor = editorRef.current as any;
+        editor.setContent("");
+      }
 
       router.push("/");
     } catch (error) {
@@ -140,7 +147,7 @@ const QuestionForm = ({ userId }: Props) => {
                 Detailed explanation of your problem?{" "}
                 <span className="text-red-500">*</span>
               </FormLabel>
-              <FormControl className="bg-dark-400">
+              <FormControl>
                 <Editor
                   apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                   onInit={(evt, editor) =>
@@ -180,6 +187,8 @@ const QuestionForm = ({ userId }: Props) => {
                       "alignright alignjustify | bullist numlist outdent indent | ",
                     content_style:
                       "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
+                    skin: theme === "dark" ? "oxide-dark" : "oxide",
+                    content_css: theme === "dark" ? "dark" : "white",
                   }}
                 />
               </FormControl>
