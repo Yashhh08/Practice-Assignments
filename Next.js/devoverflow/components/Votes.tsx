@@ -5,6 +5,7 @@ import {
   downvoteQuestion,
   upvoteQuestion,
 } from "@/lib/actions/question.action";
+import { saveQuestion } from "@/lib/actions/user.action";
 import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -45,7 +46,11 @@ const Votes = (props: Props) => {
       ? question.downvotes.includes(user._id)
       : answer.downvotes.includes(user._id);
 
-  const hasStared = false;
+  let hasStared: any;
+
+  if (type === "question") {
+    hasStared = user.saved.includes(question._id);
+  }
 
   const handleUpvote = async () => {
     try {
@@ -80,6 +85,16 @@ const Votes = (props: Props) => {
           path: pathname,
         });
       }
+    } catch (error) {}
+  };
+
+  const handleSaveQuestion = async () => {
+    try {
+      await saveQuestion({
+        userId: user._id,
+        questionId: question._id,
+        path: pathname,
+      });
     } catch (error) {}
   };
 
@@ -133,6 +148,7 @@ const Votes = (props: Props) => {
           height={22}
           width={22}
           className="cursor-pointer"
+          onClick={handleSaveQuestion}
         />
       )}
     </div>
