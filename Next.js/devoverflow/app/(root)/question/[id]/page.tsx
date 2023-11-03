@@ -1,3 +1,4 @@
+import NoResults from "@/components/NoResults";
 import ParseHTML from "@/components/ParseHTML";
 import Votes from "@/components/Votes";
 import AnswerForm from "@/components/forms/AnswerForm";
@@ -138,45 +139,45 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
       {/* ANSWERS */}
       <div>
-        {answers.length > 0
-          ? answers.map((ans) => {
-              return (
-                <div key={ans._id} className="flex flex-col gap-5">
-                  <div className="flex justify-between">
-                    <div className="flex justify-center items-center gap-2 max-sm:flex-col">
-                      <Link
-                        href={`/profile/${ans.author.clerkId}`}
-                        className="flex justify-center items-center gap-2"
-                      >
-                        <Image
-                          src={ans.author.picture}
-                          alt="author"
-                          height={24}
-                          width={24}
-                          className="rounded-full"
-                        />
-                        <p className="text-lg font-semibold">
-                          {ans.author.name}
-                        </p>
-                      </Link>
-                      <p className="text-xs">{`Answered ${getTimeStamp(
-                        ans.createdAt
-                      )}`}</p>
-                    </div>
-
-                    <Votes
-                      user={JSON.stringify(user)}
-                      answer={JSON.stringify(ans)}
-                    />
+        {answers.length > 0 ? (
+          answers.map((ans) => {
+            return (
+              <div key={ans._id} className="flex flex-col gap-5">
+                <div className="flex justify-between">
+                  <div className="flex justify-center items-center gap-2 max-sm:flex-col">
+                    <Link
+                      href={`/profile/${ans.author.clerkId}`}
+                      className="flex justify-center items-center gap-2"
+                    >
+                      <Image
+                        src={ans.author.picture}
+                        alt="author"
+                        height={24}
+                        width={24}
+                        className="rounded-full"
+                      />
+                      <p className="text-lg font-semibold">{ans.author.name}</p>
+                    </Link>
+                    <p className="text-xs">{`Answered ${getTimeStamp(
+                      ans.createdAt
+                    )}`}</p>
                   </div>
 
-                  <ParseHTML data={ans.content} />
-
-                  <Separator className="mb-7" />
+                  <Votes
+                    user={JSON.stringify(user)}
+                    answer={JSON.stringify(ans)}
+                  />
                 </div>
-              );
-            })
-          : "No answers"}
+
+                <ParseHTML data={ans.content} />
+
+                <Separator className="mb-7" />
+              </div>
+            );
+          })
+        ) : (
+          <NoResults title="No answers yet..!!" desc="" />
+        )}
       </div>
 
       {/* ANSWER FORM */}

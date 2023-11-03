@@ -6,8 +6,8 @@ import Link from "next/link";
 interface Props {
   title: string;
   desc: string;
-  link: string;
-  linkTitle: string;
+  link?: string;
+  linkTitle?: string;
 }
 
 const NoResults = (props: Props) => {
@@ -32,9 +32,11 @@ const NoResults = (props: Props) => {
 
       <p className="max-w-md">{props.desc}</p>
 
-      <Link href={props.link}>
-        <Button>{props.linkTitle}</Button>
-      </Link>
+      {props.link && props.linkTitle && (
+        <Link href={props.link}>
+          <Button>{props.linkTitle}</Button>
+        </Link>
+      )}
     </div>
   );
 };
