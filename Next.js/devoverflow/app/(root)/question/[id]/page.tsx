@@ -103,7 +103,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         </div>
 
         {/* question content */}
-        <ParseHTML data={question.content} />
+        {/* <ParseHTML data={question.content} /> */}
 
         {/* question tags */}
         <div className="flex gap-2">
@@ -170,7 +170,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                     />
                   </div>
 
-                  <ParseHTML data={ans.content} />
+                  {/* <ParseHTML data={ans.content} /> */}
 
                   <Separator className="mb-7" />
                 </div>
