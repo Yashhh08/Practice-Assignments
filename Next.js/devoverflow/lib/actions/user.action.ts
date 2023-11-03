@@ -49,7 +49,7 @@ export async function getUserById(userId: string) {
         const user = await User.findOne({ clerkId: userId });
 
         if (!user) {
-            redirect("/sign-in");
+            throw new Error("No user found")
         }
 
         return user;
@@ -102,4 +102,72 @@ export async function deleteUser(userId: string) {
         console.log(error);
         throw error;
     }
+}
+
+export interface SaveQuestionParams {
+    userId: string,
+    questionId: string,
+    path: string
+}
+
+export async function saveQuestion(params: SaveQuestionParams) {
+
+    try {
+
+        connectToDatabase();
+
+        const user = await User.findById(params.userId);
+
+        if (!user) {
+            throw new Error("No user found")
+        }
+
+        const question = await Question.findById(params.questionId);
+
+        if (!question) {
+            throw new Error("No question found")
+        }
+
+        const savedQuestion = user.saved.includes(params.questionId);
+
+        if (savedQuestion) {
+            user.saved.pull(params.questionId);
+        }
+        else {
+            user.saved.push(params.questionId);
+        }
+
+        await user.save();
+
+        revalidatePath(params.path);
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
+}
+
+export async function getSavedQuestions(userId: string) {
+
+    try {
+
+        connectToDatabase();
+
+        const user = await User.findOne({ "clerkId": userId }).populate({
+            path: 'saved',
+            options: {},
+            populate: [
+                { path: 'tags', select: "_id name" },
+                { path: 'author', select: '_id clerkId name picture' }
+            ]
+        })
+
+        return user.saved.reverse();
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
 }
