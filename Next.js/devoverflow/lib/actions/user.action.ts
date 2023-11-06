@@ -156,14 +156,16 @@ export async function getSavedQuestions(userId: string) {
 
         const user = await User.findOne({ "clerkId": userId }).populate({
             path: 'saved',
-            options: {},
+            options: {
+                sort: { createdAt: -1 }
+            },
             populate: [
                 { path: 'tags', select: "_id name" },
                 { path: 'author', select: '_id clerkId name picture' }
             ]
         })
 
-        return user.saved.reverse();
+        return user.saved;
 
     } catch (error) {
         console.log(error);

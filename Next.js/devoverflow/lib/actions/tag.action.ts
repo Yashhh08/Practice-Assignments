@@ -16,3 +16,30 @@ export async function getAllTags() {
         throw error;
     }
 };
+
+export async function getTagById(id: string) {
+
+    try {
+
+        connectToDatabase();
+
+        const tag = await Tag.findById(id)
+            .populate({
+                path: "questions",
+                options: {
+                    sort: { createdAt: -1 }
+                },
+                populate: [
+                    { path: "tags", select: "_id name" },
+                    { path: "author" }
+                ]
+            })
+
+        return { tagName: tag.name, questions: tag.questions };
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
+}
