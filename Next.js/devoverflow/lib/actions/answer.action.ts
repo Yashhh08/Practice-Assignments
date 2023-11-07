@@ -140,3 +140,27 @@ export async function downvoteAnswer(params: AnswerVoteParams) {
     }
 
 }
+
+export async function getAnswersByUserId(userId: String) {
+
+    try {
+        connectToDatabase();
+
+        const user = await User.findOne({ "clerkId": userId })
+
+        if (!user) {
+            throw new Error("No user found");
+        }
+
+        const answers = await Answer.find({ "author": user._id })
+            .populate("author")
+            .sort({ "upvotes": -1 });
+
+        return answers;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
+}

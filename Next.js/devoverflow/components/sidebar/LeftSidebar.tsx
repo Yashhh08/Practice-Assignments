@@ -1,13 +1,19 @@
 "use client";
 
 import { sidebarLinks } from "@/constants/constants";
+import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import React from "react";
 
 const LeftSidebar = () => {
   const pathName = usePathname();
+
+  const { userId } = useAuth();
+
+  if (!userId) {
+  }
 
   return (
     <div className="flex h-screen px-10 pt-28 flex-col gap-14 items-start bg-slate-100 dark:bg-neutral-900  max-md:hidden">
@@ -16,6 +22,14 @@ const LeftSidebar = () => {
           const isActive =
             pathName === item.route ||
             (pathName.includes(item.route) && item.route.length > 1);
+
+          if (item.route === "/profile") {
+            if (userId) {
+              item.route = `/profile/${userId}`;
+            } else {
+              return null;
+            }
+          }
 
           return (
             <Link

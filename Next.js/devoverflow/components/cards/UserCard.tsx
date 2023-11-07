@@ -12,7 +12,7 @@ const tags = [
 
 const UserCard = ({ user }: { user: any }) => {
   return (
-    <Link href={`/profile/${user._id}`}>
+    <Link href={`/profile/${user.clerkId}`}>
       <Card
         key={user._id}
         className="w-[260px] h-[280px] border-none p-7 flex flex-col gap-5 justify-center items-center shadow-md"
