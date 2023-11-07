@@ -52,3 +52,14 @@ export const formatAndDivideNumber = (num: number): string => {
     return num.toString();
   }
 };
+
+export const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  const monthString = new Intl.DateTimeFormat("en-US", { month: "long" }).format(date);
+
+  return `${monthString} ${year}`;
+}

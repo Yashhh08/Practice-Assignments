@@ -18,6 +18,7 @@ interface QuestionProps {
     _id: string;
     name: string;
     picture: string;
+    clerkId: string;
   };
   upvotes: number;
   views: number;
@@ -55,7 +56,7 @@ const QuestionCard = ({
 
       <div className="flex justify-between items-center text-center flex-wrap gap-5">
         <div className="flex items-center gap-2 flex-wrap">
-          <Link href={`/profile/${author._id}`}>
+          <Link href={`/profile/${author.clerkId}`}>
             <div className="flex justify-center items-center gap-1">
               <Avatar className="w-5 h-5">
                 <AvatarImage src={author.picture} />

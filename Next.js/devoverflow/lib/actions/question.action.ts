@@ -153,3 +153,28 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
     }
 
 }
+
+export async function getQuestionsByUserId(userId: String) {
+
+    try {
+        connectToDatabase();
+
+        const user = await User.findOne({ "clerkId": userId })
+
+        if (!user) {
+            throw new Error("No user found");
+        }
+
+        const questions = await Question.find({ "author": user._id })
+            .populate("author")
+            .populate("tags")
+            .sort({ "views": -1, "upvotes": -1 });
+
+        return questions;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
+}
