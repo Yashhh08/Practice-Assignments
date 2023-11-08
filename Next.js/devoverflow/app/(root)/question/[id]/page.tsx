@@ -22,6 +22,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+import EditDeleteAction from "@/components/shared/EditDeleteAction";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { userId } = auth();
@@ -141,6 +142,9 @@ const Page = async ({ params }: { params: { id: string } }) => {
       <div>
         {answers.length > 0 ? (
           answers.map((ans) => {
+            const showDeleteAction =
+              ans.author._id.toString() === user._id.toString();
+
             return (
               <div key={ans._id} className="flex flex-col gap-5">
                 <div className="flex justify-between">
@@ -163,10 +167,19 @@ const Page = async ({ params }: { params: { id: string } }) => {
                     )}`}</p>
                   </div>
 
-                  <Votes
-                    user={JSON.stringify(user)}
-                    answer={JSON.stringify(ans)}
-                  />
+                  <div className="flex gap-10 max-sm:flex-col-reverse max-sm:items-center max-sm:gap-2">
+                    <Votes
+                      user={JSON.stringify(user)}
+                      answer={JSON.stringify(ans)}
+                    />
+
+                    {showDeleteAction && (
+                      <EditDeleteAction
+                        type={"answer"}
+                        Id={JSON.stringify(ans._id)}
+                      />
+                    )}
+                  </div>
                 </div>
 
                 <ParseHTML data={ans.content} />

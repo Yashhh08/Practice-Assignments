@@ -1,22 +1,49 @@
 "use client";
+import { deleteAnswer } from "@/lib/actions/answer.action";
+import { deleteQuestion } from "@/lib/actions/question.action";
 import Image from "next/image";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import React from "react";
 
-const EditDeleteAction = () => {
-  const handleEdit = () => {};
+interface Props {
+  type: string;
+  Id: string;
+}
 
-  const handleDelete = () => {};
+const EditDeleteAction = (props: Props) => {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleEdit = () => {
+    router.push(`/question/edit/${JSON.parse(props.Id)}`);
+  };
+
+  const handleDelete = async () => {
+    if (props.type === "question") {
+      await deleteQuestion({
+        questionId: JSON.parse(props.Id),
+        path: pathname,
+      });
+    } else {
+      await deleteAnswer({
+        answerId: JSON.parse(props.Id),
+        path: pathname,
+      });
+    }
+  };
 
   return (
     <div className="flex gap-2">
-      <Image
-        src={"/assets/icons/edit.svg"}
-        alt="edit"
-        height={14}
-        width={14}
-        className="cursor-pointer"
-        onClick={handleEdit}
-      />
+      {props.type === "question" && (
+        <Image
+          src={"/assets/icons/edit.svg"}
+          alt="edit"
+          height={14}
+          width={14}
+          className="cursor-pointer"
+          onClick={handleEdit}
+        />
+      )}
       <Image
         src={"/assets/icons/trash.svg"}
         alt="delete"

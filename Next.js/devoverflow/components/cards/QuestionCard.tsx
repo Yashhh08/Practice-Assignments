@@ -52,12 +52,16 @@ const QuestionCard = ({
 
   return (
     <Card className="w-full py-9 px-[45px] border-none bg-slate-100 dark:bg-zinc-900">
-      <Link href={`/question/${_id}`} className="flex justify-between">
-        <h3 className="text-xl font-semibold line-clamp-1 max-sm:line-clamp-2 max-sm:justify-center">
-          {title}
-        </h3>
-        {showEdit && <EditDeleteAction />}
-      </Link>
+      <div className="flex justify-between max-sm:justify-between max-sm:flex-col-reverse max-sm:gap-5">
+        <Link href={`/question/${_id}`}>
+          <h3 className="text-xl font-semibold line-clamp-1 max-sm:line-clamp-2">
+            {title}
+          </h3>
+        </Link>
+        {showEdit && (
+          <EditDeleteAction type="question" Id={JSON.stringify(_id)} />
+        )}
+      </div>
 
       <div className="flex gap-2 mt-[14px] mb-[24px] flex-wrap">
         {tags.map((tag) => {
