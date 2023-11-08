@@ -6,6 +6,8 @@ import User, { IUser } from "@/database/user.model";
 import Question from "@/database/question.model";
 import Tag from "@/database/tag.model";
 import { revalidatePath } from "next/cache";
+import Answer from "@/database/answer.model";
+import Interaction from "@/database/interaction.model";
 
 export interface CreateQuestionParams {
     title: string;
@@ -171,6 +173,54 @@ export async function getQuestionsByUserId(userId: String) {
             .sort({ "views": -1, "upvotes": -1 });
 
         return questions;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
+}
+
+export interface DeleteQuestionParams {
+    questionId: string,
+    path: string
+}
+
+export async function deleteQuestion(params: DeleteQuestionParams) {
+    try {
+
+        connectToDatabase();
+
+        await Question.findByIdAndRemove(params.questionId);
+
+        await Tag.updateMany({ "questions": params.questionId }, { $pull: { "questions": params.questionId } });
+
+        await Answer.deleteMany({ "question": params.questionId });
+
+        await Interaction.deleteMany({ "question": params.questionId });
+
+        revalidatePath(params.path);
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export interface UpdateQuestionParams {
+    questionId: string
+    title: string
+    content: string
+}
+
+export async function updateQuestion(params: UpdateQuestionParams) {
+
+    try {
+        connectToDatabase();
+
+        await Question.findByIdAndUpdate(params.questionId, { "title": params.title, "content": params.content });
+
+        revalidatePath("/");
 
     } catch (error) {
         console.log(error);

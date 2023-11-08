@@ -7,6 +7,8 @@ import { getTimeStamp } from "@/lib/utils";
 import { Separator } from "../ui/separator";
 import NoResults from "../shared/NoResults";
 import ParseHTML from "../shared/ParseHTML";
+import { auth } from "@clerk/nextjs";
+import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface Props {
   questions: any;
@@ -14,6 +16,8 @@ interface Props {
 }
 
 const QuestionAnswer = (props: Props) => {
+  const { userId } = auth();
+
   return (
     <Tabs defaultValue="question" className="w-[400px">
       <TabsList>
@@ -52,6 +56,9 @@ const QuestionAnswer = (props: Props) => {
         <div>
           {props.answers.length > 0 ? (
             props.answers.map((ans: any) => {
+              
+              const showDeleteAction = ans.author.clerkId === userId;
+
               return (
                 <div key={ans._id} className="flex flex-col gap-5">
                   <div className="flex justify-between">
@@ -76,10 +83,18 @@ const QuestionAnswer = (props: Props) => {
                       )}`}</p>
                     </div>
 
-                    {/* <Votes
-                      user={JSON.stringify(user)}
-                      answer={JSON.stringify(ans)}
-                    /> */}
+                    <div className="flex gap-5 items-center max-sm:flex-col-reverse">
+                      <div className="flex gap-5 max-sm:gap-1">
+                        <p className="text-xs text-center">{`${ans.upvotes.length} Upvotes`}</p>
+                        <p className="text-xs text-center">{`${ans.downvotes.length} Downvotes`}</p>
+                      </div>
+                      {showDeleteAction && (
+                        <EditDeleteAction
+                          type={"answer"}
+                          Id={JSON.stringify(ans._id)}
+                        />
+                      )}
+                    </div>
                   </div>
 
                   <ParseHTML data={ans.content} />

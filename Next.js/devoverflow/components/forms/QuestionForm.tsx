@@ -20,9 +20,10 @@ import { Input } from "@/components/ui/input";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
-import { createQuestion } from "@/lib/actions/question.action";
+import { createQuestion, updateQuestion } from "@/lib/actions/question.action";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+import { revalidatePath } from "next/cache";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -32,26 +33,31 @@ const formSchema = z.object({
     .min(1, { message: "At least one tag is required" }),
 });
 
-const type: any = "create";
-
 interface Props {
   userId: string;
+  type?: string;
+  questionDetails?: string;
 }
 
-const QuestionForm = ({ userId }: Props) => {
+const QuestionForm = (props: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
   const editorRef = useRef(null);
   const { theme } = useTheme();
 
+  const questionDetails =
+    props.questionDetails && JSON.parse(props.questionDetails || "{}");
+
+  const AllTags = questionDetails?.tags.map((tag: any) => tag.name);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      explanation: "",
-      tags: [],
+      title: questionDetails?.title || "",
+      explanation: questionDetails?.content || "",
+      tags: AllTags || [],
     },
   });
 
@@ -60,12 +66,20 @@ const QuestionForm = ({ userId }: Props) => {
     setIsSubmitting(true);
 
     try {
-      await createQuestion({
-        title: values.title,
-        content: values.explanation,
-        tags: values.tags,
-        author: JSON.parse(userId),
-      });
+      if (props.type !== "edit") {
+        await createQuestion({
+          title: values.title,
+          content: values.explanation,
+          tags: values.tags,
+          author: JSON.parse(props.userId),
+        });
+      } else {
+        await updateQuestion({
+          questionId: questionDetails._id,
+          title: values.title,
+          content: values.explanation,
+        });
+      }
 
       form.reset();
 
@@ -156,7 +170,7 @@ const QuestionForm = ({ userId }: Props) => {
                   }
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue=""
+                  initialValue={questionDetails?.content || ""}
                   init={{
                     height: 350,
                     menubar: false,
@@ -210,7 +224,10 @@ const QuestionForm = ({ userId }: Props) => {
               </FormLabel>
               <FormControl>
                 <>
-                  <Input onKeyDown={(e) => handleKeyDown(e, field)} />
+                  <Input
+                    disabled={props.type === "edit"}
+                    onKeyDown={(e) => handleKeyDown(e, field)}
+                  />
 
                   {field.value.length > 0 && (
                     <div className="flex justify-start items-center gap-2 flex-wrap uppercase">
@@ -218,14 +235,16 @@ const QuestionForm = ({ userId }: Props) => {
                         return (
                           <Badge key={tag}>
                             {tag}
-                            <Image
-                              src={"/assets/icons/close.svg"}
-                              alt="close"
-                              height={12}
-                              width={12}
-                              className="ml-1 hover:cursor-pointer"
-                              onClick={() => removeTagHandler(tag, field)}
-                            />
+                            {props.type !== "edit" && (
+                              <Image
+                                src={"/assets/icons/close.svg"}
+                                alt="close"
+                                height={12}
+                                width={12}
+                                className="ml-1 hover:cursor-pointer"
+                                onClick={() => removeTagHandler(tag, field)}
+                              />
+                            )}
                           </Badge>
                         );
                       })}
@@ -244,9 +263,9 @@ const QuestionForm = ({ userId }: Props) => {
         <div className="flex justify-center items-center">
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
-              <>{type === "edit" ? "Editing..." : "Posting..."}</>
+              <>{props.type === "edit" ? "Editing..." : "Posting..."}</>
             ) : (
-              <>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+              <>{props.type === "edit" ? "Edit Question" : "Ask a Question"}</>
             )}
           </Button>
         </div>

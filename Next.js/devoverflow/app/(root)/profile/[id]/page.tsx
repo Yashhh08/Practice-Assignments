@@ -51,9 +51,9 @@ const Page = async ({ params }: { params: { id: string } }) => {
           </div>
 
           <div>
-            <Button variant={"secondary"} className="mt-5">
+            {/* <Button variant={"secondary"} className="mt-5">
               Edit Profile
-            </Button>
+            </Button> */}
           </div>
         </div>
 
