@@ -6,6 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import Link from "next/link";
 import { getTimeStamp, formatAndDivideNumber } from "../../lib/utils";
+import { auth } from "@clerk/nextjs";
+import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface QuestionProps {
   _id: string;
@@ -40,12 +42,21 @@ const QuestionCard = ({
   answers,
   createdAt,
 }: QuestionProps) => {
+  const { userId } = auth();
+
+  let showEdit = false;
+
+  if (userId === author.clerkId) {
+    showEdit = true;
+  }
+
   return (
     <Card className="w-full py-9 px-[45px] border-none bg-slate-100 dark:bg-zinc-900">
-      <Link href={`/question/${_id}`}>
+      <Link href={`/question/${_id}`} className="flex justify-between">
         <h3 className="text-xl font-semibold line-clamp-1 max-sm:line-clamp-2 max-sm:justify-center">
           {title}
         </h3>
+        {showEdit && <EditDeleteAction />}
       </Link>
 
       <div className="flex gap-2 mt-[14px] mb-[24px] flex-wrap">

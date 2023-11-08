@@ -1,4 +1,4 @@
-import NoResults from "@/components/NoResults";
+import NoResults from "@/components/shared/NoResults";
 import QuestionCard from "@/components/cards/QuestionCard";
 import LocalSearch from "@/components/search/LocalSearch";
 import {

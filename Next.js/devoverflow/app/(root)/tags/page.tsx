@@ -11,7 +11,7 @@ import LocalSearch from "@/components/search/LocalSearch";
 import TagCard from "@/components/cards/TagCard";
 import Link from "next/link";
 import { getAllTags } from "@/lib/actions/tag.action";
-import NoResults from "@/components/NoResults";
+import NoResults from "@/components/shared/NoResults";
 
 const page = async () => {
   const tags = await getAllTags();

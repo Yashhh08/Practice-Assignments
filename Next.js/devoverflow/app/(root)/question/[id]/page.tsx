@@ -1,6 +1,6 @@
-import NoResults from "@/components/NoResults";
-import ParseHTML from "@/components/ParseHTML";
-import Votes from "@/components/Votes";
+import NoResults from "@/components/shared/NoResults";
+import ParseHTML from "@/components/shared/ParseHTML";
+import Votes from "@/components/shared/Votes";
 import AnswerForm from "@/components/forms/AnswerForm";
 import RenderTag from "@/components/ui/RenderTag";
 import {

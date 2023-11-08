@@ -8,10 +8,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import NoResults from "@/components/NoResults";
 import QuestionCard from "@/components/cards/QuestionCard";
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
+import NoResults from "@/components/shared/NoResults";
 
 export default async function Home() {
   const questions = await getQuestions();

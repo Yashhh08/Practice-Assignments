@@ -1,13 +1,12 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import QuestionCard from "../cards/QuestionCard";
-import NoResults from "../NoResults";
 import Link from "next/link";
 import Image from "next/image";
 import { getTimeStamp } from "@/lib/utils";
-import Votes from "../Votes";
-import ParseHTML from "../ParseHTML";
 import { Separator } from "../ui/separator";
+import NoResults from "../shared/NoResults";
+import ParseHTML from "../shared/ParseHTML";
 
 interface Props {
   questions: any;
