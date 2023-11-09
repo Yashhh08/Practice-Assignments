@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import "../styles/prism.css"
+import "../styles/prism.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -46,7 +46,7 @@ export default function RootLayout({
           <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
             <ThemeProvider
               attribute="class"
-              defaultTheme="system"
+              defaultTheme="dark"
               enableSystem
               disableTransitionOnChange
             >

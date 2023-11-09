@@ -43,3 +43,24 @@ export async function getTagById(id: string) {
     }
 
 }
+
+export async function getTopTags() {
+
+    try {
+
+        connectToDatabase();
+
+        const tags = await Tag.aggregate([
+            { $project: { name: 1, numberOfQuestions: { $size: "$questions" } } },
+            { $sort: { numberOfQuestions: -1 } },
+            { $limit: 5 }
+        ])
+
+        return tags;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
+}
