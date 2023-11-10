@@ -13,8 +13,12 @@ import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
 import NoResults from "@/components/shared/NoResults";
 
-export default async function Home() {
-  const questions = await getQuestions();
+interface SearchParamsProps {
+  searchParams: { [key: string]: string | undefined };
+}
+
+export default async function Home(searchParams: SearchParamsProps) {
+  const questions = await getQuestions(searchParams.searchParams.q!);
 
   return (
     <>
