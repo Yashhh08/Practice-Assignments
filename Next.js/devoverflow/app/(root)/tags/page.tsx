@@ -13,11 +13,11 @@ import Link from "next/link";
 import { getAllTags } from "@/lib/actions/tag.action";
 import NoResults from "@/components/shared/NoResults";
 
-const page = async ({
-  searchParams,
-}: {
-  [key: string]: string | undefined;
-}) => {
+interface Props {
+  searchParams: { [key: string]: string | undefined };
+}
+
+const page = async ({ searchParams }: Props) => {
   // @ts-ignore
   const tags = await getAllTags(searchParams.q);
 

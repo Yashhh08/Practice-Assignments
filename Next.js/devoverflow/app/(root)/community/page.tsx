@@ -13,11 +13,11 @@ import { getAllUsers } from "@/lib/actions/user.action";
 import Link from "next/link";
 import UserCard from "@/components/cards/UserCard";
 
-const Page = async ({
-  searchParams,
-}: {
-  [key: string]: string | undefined;
-}) => {
+interface Props {
+  searchParams: { [key: string]: string | undefined };
+}
+
+const Page = async ({ searchParams }: Props) => {
   // @ts-ignore
   const users = await getAllUsers(searchParams.q);
 
