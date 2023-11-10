@@ -14,11 +14,11 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const Page = async ({
-  searchParams,
-}: {
-  [key: string]: string | undefined;
-}) => {
+interface Props {
+  searchParams: { [key: string]: string | undefined };
+}
+
+const Page = async ({ searchParams }: Props) => {
   const { userId } = auth();
 
   if (!userId) {
