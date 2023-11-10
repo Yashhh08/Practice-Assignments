@@ -1,6 +1,6 @@
 "use server"
 
-import { Schema } from "mongoose";
+import { FilterQuery, Schema } from "mongoose";
 import { connectToDatabase } from "../mongoose";
 import User, { IUser } from "@/database/user.model";
 import Question from "@/database/question.model";
@@ -51,13 +51,22 @@ export async function createQuestion(que: CreateQuestionParams) {
     }
 }
 
-export async function getQuestions() {
+export async function getQuestions(searchQuery: string) {
     try {
         await connectToDatabase();
 
         await User.find();
 
-        const questions = await Question.find()
+        const query: FilterQuery<typeof Question> = {}
+
+        if (searchQuery) {
+            query.$or = [
+                { title: { $regex: new RegExp(searchQuery, "i") } },
+                { content: { $regex: new RegExp(searchQuery, "i") } }
+            ]
+        }
+
+        const questions = await Question.find(query)
             .populate({ path: "tags", model: "Tag" })
             .populate({ path: "author", model: "User" })
             .sort({ createdAt: -1 })

@@ -5,6 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 import { notFound, redirect } from "next/navigation";
+import { FilterQuery } from "mongoose";
 
 export interface CreateUserParams {
     clerkId: string;
@@ -28,11 +29,20 @@ export async function createUser(userData: CreateUserParams) {
     }
 }
 
-export async function getAllUsers() {
+export async function getAllUsers(searchQuery: string) {
     try {
         await connectToDatabase();
 
-        const users = await User.find().sort({ createdAt: -1 });
+        const query: FilterQuery<typeof User> = {};
+
+        if (searchQuery) {
+            query.$or = [
+                { name: { $regex: new RegExp(searchQuery, "i") } },
+                { username: { $regex: new RegExp(searchQuery, "i") } }
+            ]
+        }
+
+        const users = await User.find(query).sort({ createdAt: -1 });
 
         return users;
 
@@ -148,14 +158,24 @@ export async function saveQuestion(params: SaveQuestionParams) {
 
 }
 
-export async function getSavedQuestions(userId: string) {
+export async function getSavedQuestions(userId: string, searchQuery: string) {
 
     try {
 
         connectToDatabase();
 
+        const query: FilterQuery<typeof Question> = {};
+
+        if (searchQuery) {
+            query.$or = [
+                { title: { $regex: new RegExp(searchQuery, "i") } },
+                { content: { $regex: new RegExp(searchQuery, "i") } }
+            ]
+        }
+
         const user = await User.findOne({ "clerkId": userId }).populate({
             path: 'saved',
+            match: query,
             options: {
                 sort: { createdAt: -1 }
             },

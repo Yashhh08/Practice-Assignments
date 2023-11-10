@@ -14,14 +14,19 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const Page = async () => {
+interface Props {
+  searchParams: { [key: string]: string | undefined };
+}
+
+const Page = async ({ searchParams }: Props) => {
   const { userId } = auth();
 
   if (!userId) {
     redirect("/sign-in");
   }
 
-  const questions = await getSavedQuestions(userId);
+  // @ts-ignore
+  const questions = await getSavedQuestions(userId, searchParams.q);
 
   return (
     <>
@@ -30,7 +35,7 @@ const Page = async () => {
 
         <div className="flex justify-between items-center gap-5 max-sm:flex-col">
           <LocalSearch
-            route="/"
+            route="/collection"
             placeholder="Search questions..."
             otherClasses=""
           />

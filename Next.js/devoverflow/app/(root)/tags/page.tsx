@@ -13,8 +13,13 @@ import Link from "next/link";
 import { getAllTags } from "@/lib/actions/tag.action";
 import NoResults from "@/components/shared/NoResults";
 
-const page = async () => {
-  const tags = await getAllTags();
+interface Props {
+  searchParams: { [key: string]: string | undefined };
+}
+
+const page = async ({ searchParams }: Props) => {
+  // @ts-ignore
+  const tags = await getAllTags(searchParams.q);
 
   return (
     <>
@@ -23,7 +28,7 @@ const page = async () => {
 
         <div className="flex justify-between items-center gap-5 max-sm:flex-col">
           <LocalSearch
-            route="/"
+            route="/tags"
             placeholder="Search by tag name..."
             otherClasses=""
           />

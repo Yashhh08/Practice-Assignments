@@ -13,8 +13,13 @@ import { getAllUsers } from "@/lib/actions/user.action";
 import Link from "next/link";
 import UserCard from "@/components/cards/UserCard";
 
-const Page = async () => {
-  const users = await getAllUsers();
+interface Props {
+  searchParams: { [key: string]: string | undefined };
+}
+
+const Page = async ({ searchParams }: Props) => {
+  // @ts-ignore
+  const users = await getAllUsers(searchParams.q);
 
   return (
     <>
@@ -23,7 +28,7 @@ const Page = async () => {
 
         <div className="flex justify-between items-center gap-5 max-sm:flex-col">
           <LocalSearch
-            route="/"
+            route="/community"
             placeholder="Search amazing minds here..."
             otherClasses=""
           />

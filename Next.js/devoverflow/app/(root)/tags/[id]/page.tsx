@@ -5,8 +5,14 @@ import { getTagById } from "@/lib/actions/tag.action";
 
 import React from "react";
 
-const Page = async ({ params }: { params: { id: string } }) => {
-  const tag = await getTagById(params.id);
+interface Props {
+  params: { id: string };
+  searchParams: { [key: string]: string | undefined };
+}
+
+const Page = async ({ params, searchParams }: Props) => {
+  // @ts-ignore
+  const tag = await getTagById(params.id, searchParams.q);
 
   const questions = tag.questions;
 
@@ -19,7 +25,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
         <div className="flex justify-between items-center gap-5 max-sm:flex-col">
           <LocalSearch
-            route="/"
+            route={`/tags/${params.id}`}
             placeholder="Search tag questions..."
             otherClasses=""
           />
