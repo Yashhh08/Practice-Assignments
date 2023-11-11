@@ -12,6 +12,7 @@ import TagCard from "@/components/cards/TagCard";
 import Link from "next/link";
 import { getAllTags } from "@/lib/actions/tag.action";
 import NoResults from "@/components/shared/NoResults";
+import Filter from "@/components/shared/Filter";
 
 interface Props {
   searchParams: { [key: string]: string | undefined };
@@ -19,7 +20,7 @@ interface Props {
 
 const page = async ({ searchParams }: Props) => {
   // @ts-ignore
-  const tags = await getAllTags(searchParams.q);
+  const tags = await getAllTags(searchParams.q, searchParams.filter);
 
   return (
     <>
@@ -33,20 +34,7 @@ const page = async ({ searchParams }: Props) => {
             otherClasses=""
           />
 
-          <Select>
-            <SelectTrigger className="w-auto max-sm:h-8">
-              <SelectValue placeholder="Filter" />
-            </SelectTrigger>
-            <SelectContent>
-              {TagFilters.map((item) => {
-                return (
-                  <SelectItem key={item.name} value={item.value}>
-                    {item.name}
-                  </SelectItem>
-                );
-              })}
-            </SelectContent>
-          </Select>
+          <Filter filter={TagFilters} />
         </div>
 
         <div className="flex justify-center items-center gap-3 flex-wrap">

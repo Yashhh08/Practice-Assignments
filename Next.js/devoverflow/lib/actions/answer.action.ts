@@ -47,7 +47,7 @@ export async function createAnswer(params: CreateAnswerParams) {
 
 export interface GetAnswersParams {
     questionId: string;
-    sortBy?: string;
+    filter: string
     page?: number;
     pageSize?: number;
 }
@@ -57,9 +57,26 @@ export async function getAnswers(params: GetAnswersParams) {
     try {
         connectToDatabase();
 
+        let sortOptions = {};
+
+        switch (params.filter) {
+            case "highestUpvotes":
+                sortOptions = { upvotes: -1 }
+                break;
+            case "lowestUpvotes":
+                sortOptions = { upvotes: -1 }
+                break;
+            case "recent":
+                sortOptions = { createdAt: -1 }
+                break;
+            case "old":
+                sortOptions = { createdAt: 1 }
+                break;
+        }
+
         const answers = await Answer.find({ question: params.questionId })
             .populate({ path: "author" })
-            .sort({ createdAt: -1 });
+            .sort(sortOptions);
 
         return answers;
 

@@ -1,18 +1,12 @@
 import NoResults from "@/components/shared/NoResults";
 import QuestionCard from "@/components/cards/QuestionCard";
 import LocalSearch from "@/components/search/LocalSearch";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { QuestionFilters } from "@/constants/filters";
 import { getSavedQuestions, getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import React from "react";
+import Filter from "@/components/shared/Filter";
 
 interface Props {
   searchParams: { [key: string]: string | undefined };
@@ -25,8 +19,12 @@ const Page = async ({ searchParams }: Props) => {
     redirect("/sign-in");
   }
 
-  // @ts-ignore
-  const questions = await getSavedQuestions(userId, searchParams.q);
+  const questions = await getSavedQuestions(
+    userId,
+    // @ts-ignore
+    searchParams.q,
+    searchParams.filter
+  );
 
   return (
     <>
@@ -40,20 +38,7 @@ const Page = async ({ searchParams }: Props) => {
             otherClasses=""
           />
 
-          <Select>
-            <SelectTrigger className="w-auto max-sm:h-8">
-              <SelectValue placeholder="Filter" />
-            </SelectTrigger>
-            <SelectContent>
-              {QuestionFilters.map((item) => {
-                return (
-                  <SelectItem key={item.name} value={item.value}>
-                    {item.name}
-                  </SelectItem>
-                );
-              })}
-            </SelectContent>
-          </Select>
+          <Filter filter={QuestionFilters} />
         </div>
 
         <div className="flex flex-col justify-center items-center gap-6">

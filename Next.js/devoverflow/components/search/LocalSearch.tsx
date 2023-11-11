@@ -30,7 +30,7 @@ const LocalSearch = ({ route, placeholder, otherClasses }: customTypes) => {
           value: search,
         });
 
-        router.push(newUrl);
+        router.push(newUrl, { scroll: false });
       } else {
         if (pathname === route) {
           const newUrl = removeKeysFromQuery({
@@ -38,7 +38,7 @@ const LocalSearch = ({ route, placeholder, otherClasses }: customTypes) => {
             keysToRemove: ["q"],
           });
 
-          router.push(newUrl);
+          router.push(newUrl, { scroll: false });
         }
       }
     }, 700);
