@@ -1,24 +1,20 @@
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import QuestionCard from "@/components/cards/QuestionCard";
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
 import NoResults from "@/components/shared/NoResults";
+import Filter from "@/components/shared/Filter";
 
 interface SearchParamsProps {
   searchParams: { [key: string]: string | undefined };
 }
 
-export default async function Home(searchParams: SearchParamsProps) {
-  const questions = await getQuestions(searchParams.searchParams.q!);
+export default async function Home({ searchParams }: SearchParamsProps) {
+  // @ts-ignore
+  const questions = await getQuestions(searchParams.q, searchParams.filter);
 
   return (
     <>
@@ -43,20 +39,7 @@ export default async function Home(searchParams: SearchParamsProps) {
             otherClasses=""
           />
 
-          <Select>
-            <SelectTrigger className="w-auto max-sm:h-8">
-              <SelectValue placeholder="Filter" />
-            </SelectTrigger>
-            <SelectContent>
-              {HomePageFilters.map((item) => {
-                return (
-                  <SelectItem key={item.name} value={item.value}>
-                    {item.name}
-                  </SelectItem>
-                );
-              })}
-            </SelectContent>
-          </Select>
+          <Filter filter={HomePageFilters} />
         </div>
 
         <div className="flex flex-col justify-center items-center gap-6">

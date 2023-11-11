@@ -23,8 +23,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
+import Filter from "@/components/shared/Filter";
 
-const Page = async ({ params }: { params: { id: string } }) => {
+interface Props {
+  params: { id: string };
+  searchParams: { [key: string]: string | undefined };
+}
+
+const Page = async ({ params, searchParams }: Props) => {
   const { userId } = auth();
 
   if (!userId) {
@@ -35,7 +41,10 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   const question = await getQuestionById(params.id);
 
-  const answers = await getAnswers({ questionId: params.id });
+  const answers = await getAnswers({
+    questionId: params.id,
+    filter: searchParams.filter!,
+  });
 
   return (
     <div className="flex flex-col gap-10">
@@ -122,20 +131,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         <p className="text-primary">{`${formatAndDivideNumber(
           question.answers.length
         )} Answers`}</p>
-        <Select>
-          <SelectTrigger className="w-auto max-sm:h-8">
-            <SelectValue placeholder="Select a Filter" />
-          </SelectTrigger>
-          <SelectContent>
-            {AnswerFilters.map((item) => {
-              return (
-                <SelectItem key={item.name} value={item.value}>
-                  {item.name}
-                </SelectItem>
-              );
-            })}
-          </SelectContent>
-        </Select>
+        <Filter filter={AnswerFilters} />
       </div>
 
       {/* ANSWERS */}

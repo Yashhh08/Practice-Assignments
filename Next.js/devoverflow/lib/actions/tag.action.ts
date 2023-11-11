@@ -5,7 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import { FilterQuery } from "mongoose";
 import Question from "@/database/question.model";
 
-export async function getAllTags(searchQuery: string) {
+export async function getAllTags(searchQuery: string, filter: string) {
     try {
         connectToDatabase();
 
@@ -17,7 +17,24 @@ export async function getAllTags(searchQuery: string) {
             ]
         }
 
-        const tags = Tag.find(query).sort({ createdOn: -1 })
+        let sortOptions = {};
+
+        switch (filter) {
+            case "popular":
+                sortOptions = { questions: -1 }
+                break;
+            case "recent":
+                sortOptions = { createdOn: -1 }
+                break;
+            case "name":
+                sortOptions = { name: 1 }
+                break;
+            case "old":
+                sortOptions = { createdOn: 1 }
+                break;
+        }
+
+        const tags = Tag.find(query).sort(sortOptions);
 
         return tags;
     }

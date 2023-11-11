@@ -1,17 +1,11 @@
 import React from "react";
 import LocalSearch from "@/components/search/LocalSearch";
 import { UserFilters } from "@/constants/filters";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { getAllUsers } from "@/lib/actions/user.action";
 
 import Link from "next/link";
 import UserCard from "@/components/cards/UserCard";
+import Filter from "@/components/shared/Filter";
 
 interface Props {
   searchParams: { [key: string]: string | undefined };
@@ -19,7 +13,7 @@ interface Props {
 
 const Page = async ({ searchParams }: Props) => {
   // @ts-ignore
-  const users = await getAllUsers(searchParams.q);
+  const users = await getAllUsers(searchParams.q, searchParams.filter);
 
   return (
     <>
@@ -33,20 +27,7 @@ const Page = async ({ searchParams }: Props) => {
             otherClasses=""
           />
 
-          <Select>
-            <SelectTrigger className="w-auto max-sm:h-8">
-              <SelectValue placeholder="Filter" />
-            </SelectTrigger>
-            <SelectContent>
-              {UserFilters.map((item) => {
-                return (
-                  <SelectItem key={item.name} value={item.value}>
-                    {item.name}
-                  </SelectItem>
-                );
-              })}
-            </SelectContent>
-          </Select>
+          <Filter filter={UserFilters} />
         </div>
 
         <div className="flex justify-center items-center gap-3 flex-wrap">
