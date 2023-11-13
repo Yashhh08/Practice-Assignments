@@ -7,14 +7,19 @@ import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
 import NoResults from "@/components/shared/NoResults";
 import Filter from "@/components/shared/Filter";
+import Pagination from "./../../../components/shared/Pagination";
 
 interface SearchParamsProps {
   searchParams: { [key: string]: string | undefined };
 }
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  // @ts-ignore
-  const questions = await getQuestions(searchParams.q, searchParams.filter);
+  const result = await getQuestions(
+    // @ts-ignore
+    searchParams.q, 
+    searchParams.filter,
+    searchParams.page ? +searchParams.page : 1
+    );
 
   return (
     <>
@@ -43,8 +48,8 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         </div>
 
         <div className="flex flex-col justify-center items-center gap-6">
-          {questions.length > 0 ? (
-            questions.map((question) => {
+          {result.questions.length > 0 ? (
+            result.questions.map((question) => {
               return (
                 <QuestionCard
                   key={question._id}
@@ -70,6 +75,10 @@ export default async function Home({ searchParams }: SearchParamsProps) {
             />
           )}
         </div>
+      </div>
+
+      <div className="">
+        <Pagination page={searchParams.page ? +searchParams.page:1} isNext={result.isNext} />
       </div>
     </>
   );

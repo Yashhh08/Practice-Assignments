@@ -5,7 +5,7 @@ import { connectToDatabase } from "../mongoose";
 import { FilterQuery } from "mongoose";
 import Question from "@/database/question.model";
 
-export async function getAllTags(searchQuery: string, filter: string) {
+export async function getAllTags(searchQuery: string, filter: string, page = 1, pageSize = 9) {
     try {
         connectToDatabase();
 
@@ -34,9 +34,15 @@ export async function getAllTags(searchQuery: string, filter: string) {
                 break;
         }
 
-        const tags = Tag.find(query).sort(sortOptions);
+        const skipAmount = (page - 1) * pageSize;
 
-        return tags;
+        const tags = await Tag.find(query).skip(skipAmount).limit(pageSize).sort(sortOptions);
+
+        const totalTags = await Tag.countDocuments(query);
+
+        const isNext = skipAmount + pageSize < totalTags;
+
+        return { tags, isNext };
     }
     catch (error) {
         console.log(error);
@@ -44,7 +50,7 @@ export async function getAllTags(searchQuery: string, filter: string) {
     }
 };
 
-export async function getTagById(id: string, searchQuery: string) {
+export async function getTagById(id: string, searchQuery: string, page = 1, pageSize = 20) {
 
     try {
 
@@ -59,12 +65,16 @@ export async function getTagById(id: string, searchQuery: string) {
             ]
         }
 
+        const skipAmount = (page - 1) * pageSize;
+
         const tag = await Tag.findById(id)
             .populate({
                 path: "questions",
                 match: query,
                 options: {
-                    sort: { createdAt: -1 }
+                    sort: { createdAt: -1 },
+                    skip: skipAmount,
+                    limit: pageSize + 1
                 },
                 populate: [
                     { path: "tags", select: "_id name" },
@@ -72,7 +82,9 @@ export async function getTagById(id: string, searchQuery: string) {
                 ]
             })
 
-        return { tagName: tag.name, questions: tag.questions };
+        const isNext = tag.questions.length > pageSize;
+
+        return { tagName: tag.name, questions: tag.questions, isNext };
 
     } catch (error) {
         console.log(error);

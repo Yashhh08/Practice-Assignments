@@ -52,14 +52,14 @@ export interface GetAnswersParams {
     pageSize?: number;
 }
 
-export async function getAnswers(params: GetAnswersParams) {
+export async function getAnswers({ questionId, filter, page = 1, pageSize = 10 }: GetAnswersParams) {
 
     try {
         connectToDatabase();
 
         let sortOptions = {};
 
-        switch (params.filter) {
+        switch (filter) {
             case "highestUpvotes":
                 sortOptions = { upvotes: -1 }
                 break;
@@ -74,11 +74,19 @@ export async function getAnswers(params: GetAnswersParams) {
                 break;
         }
 
-        const answers = await Answer.find({ question: params.questionId })
+        const skipAmount = (page - 1) * pageSize;
+
+        const answers = await Answer.find({ question: questionId })
             .populate({ path: "author" })
+            .skip(skipAmount)
+            .limit(pageSize)
             .sort(sortOptions);
 
-        return answers;
+        const totalAnswers = await Answer.countDocuments({ question: questionId });
+
+        const isNext = skipAmount + pageSize < totalAnswers;
+
+        return { answers, isNext };
 
     } catch (error) {
         console.log(error);

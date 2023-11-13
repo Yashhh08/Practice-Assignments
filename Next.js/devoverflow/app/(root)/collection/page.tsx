@@ -7,6 +7,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import React from "react";
 import Filter from "@/components/shared/Filter";
+import Pagination from "@/components/shared/Pagination";
 
 interface Props {
   searchParams: { [key: string]: string | undefined };
@@ -19,11 +20,12 @@ const Page = async ({ searchParams }: Props) => {
     redirect("/sign-in");
   }
 
-  const questions = await getSavedQuestions(
+  const result = await getSavedQuestions(
     userId,
     // @ts-ignore
     searchParams.q,
-    searchParams.filter
+    searchParams.filter,
+    searchParams.page ? +searchParams.page : 1
   );
 
   return (
@@ -42,8 +44,8 @@ const Page = async ({ searchParams }: Props) => {
         </div>
 
         <div className="flex flex-col justify-center items-center gap-6">
-          {questions.length > 0 ? (
-            questions.map((question: any) => {
+          {result.questions.length > 0 ? (
+            result.questions.map((question: any) => {
               return (
                 <QuestionCard
                   key={question._id}
@@ -67,6 +69,10 @@ const Page = async ({ searchParams }: Props) => {
             />
           )}
         </div>
+      </div>
+
+      <div className="">
+        <Pagination page={searchParams.page ? +searchParams.page:1} isNext={result.isNext} />
       </div>
     </>
   );

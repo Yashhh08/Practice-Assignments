@@ -51,7 +51,7 @@ export async function createQuestion(que: CreateQuestionParams) {
     }
 }
 
-export async function getQuestions(searchQuery: string, filter: string) {
+export async function getQuestions(searchQuery: string, filter: string, page = 1, pageSize = 20) {
     try {
         await connectToDatabase();
 
@@ -80,12 +80,20 @@ export async function getQuestions(searchQuery: string, filter: string) {
                 break;
         }
 
+        const skipAmount = (page - 1) * pageSize;
+
         const questions = await Question.find(query)
             .populate({ path: "tags", model: "Tag" })
             .populate({ path: "author", model: "User" })
+            .skip(skipAmount)
+            .limit(pageSize)
             .sort(sortOptions)
 
-        return questions;
+        const totalQuestions = await Question.countDocuments(query);
+
+        const isNext = skipAmount + pageSize < totalQuestions;
+
+        return { questions, isNext };
 
     } catch (error) {
         console.log(error);
