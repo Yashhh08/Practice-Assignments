@@ -4,6 +4,7 @@ import LocalSearch from "@/components/search/LocalSearch";
 import { getTagById } from "@/lib/actions/tag.action";
 
 import React from "react";
+import Pagination from "@/components/shared/Pagination";
 
 interface Props {
   params: { id: string };
@@ -12,15 +13,15 @@ interface Props {
 
 const Page = async ({ params, searchParams }: Props) => {
   // @ts-ignore
-  const tag = await getTagById(params.id, searchParams.q);
+  const result = await getTagById(params.id, searchParams.q, searchParams.page? +searchParams.page:1);
 
-  const questions = tag.questions;
+  const questions = result.questions;
 
   return (
     <>
       <div className="flex flex-col gap-7">
         <h1 className="font-bold text-3xl text-center uppercase">
-          {tag.tagName}
+          {result.tagName}
         </h1>
 
         <div className="flex justify-between items-center gap-5 max-sm:flex-col">
@@ -57,6 +58,10 @@ const Page = async ({ params, searchParams }: Props) => {
             />
           )}
         </div>
+      </div>
+
+      <div>
+        <Pagination page={searchParams.page ? +searchParams.page:1} isNext={result.isNext}/>
       </div>
     </>
   );

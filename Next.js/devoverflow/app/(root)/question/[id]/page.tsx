@@ -24,6 +24,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
 import Filter from "@/components/shared/Filter";
+import Pagination from "@/components/shared/Pagination";
 
 interface Props {
   params: { id: string };
@@ -41,9 +42,10 @@ const Page = async ({ params, searchParams }: Props) => {
 
   const question = await getQuestionById(params.id);
 
-  const answers = await getAnswers({
+  const result = await getAnswers({
     questionId: params.id,
     filter: searchParams.filter!,
+    page: searchParams.page ? +searchParams.page : 1,
   });
 
   return (
@@ -136,8 +138,8 @@ const Page = async ({ params, searchParams }: Props) => {
 
       {/* ANSWERS */}
       <div>
-        {answers.length > 0 ? (
-          answers.map((ans) => {
+        {result.answers.length > 0 ? (
+          result.answers.map((ans) => {
             const showDeleteAction =
               ans.author._id.toString() === user._id.toString();
 
@@ -187,6 +189,13 @@ const Page = async ({ params, searchParams }: Props) => {
         ) : (
           <NoResults title="No answers yet..!!" desc="" />
         )}
+
+        <div>
+          <Pagination
+            page={searchParams.page ? +searchParams.page : 1}
+            isNext={result.isNext}
+          />
+        </div>
       </div>
 
       {/* ANSWER FORM */}

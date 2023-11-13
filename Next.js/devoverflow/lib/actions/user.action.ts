@@ -29,7 +29,7 @@ export async function createUser(userData: CreateUserParams) {
     }
 }
 
-export async function getAllUsers(searchQuery: string, filter: string) {
+export async function getAllUsers(searchQuery: string, filter: string, page = 1, pageSize = 9) {
     try {
         await connectToDatabase();
 
@@ -56,9 +56,15 @@ export async function getAllUsers(searchQuery: string, filter: string) {
                 break;
         }
 
-        const users = await User.find(query).sort(sortOptions);
+        const skipAmount = (page - 1) * pageSize;
 
-        return users;
+        const users = await User.find(query).sort(sortOptions).skip(skipAmount).limit(pageSize);
+
+        const totalUsers = await User.countDocuments(query);
+
+        const isNext = skipAmount + pageSize < totalUsers;
+
+        return { users, isNext };
 
     } catch (error) {
         console.log(error);
@@ -172,7 +178,7 @@ export async function saveQuestion(params: SaveQuestionParams) {
 
 }
 
-export async function getSavedQuestions(userId: string, searchQuery: string, filter: string) {
+export async function getSavedQuestions(userId: string, searchQuery: string, filter: string, page = 1, pageSize = 20) {
 
     try {
 
@@ -207,11 +213,15 @@ export async function getSavedQuestions(userId: string, searchQuery: string, fil
                 break;
         }
 
+        const skipAmount = (page - 1) * pageSize;
+
         const user = await User.findOne({ "clerkId": userId }).populate({
             path: 'saved',
             match: query,
             options: {
-                sort: sortOptions
+                sort: sortOptions,
+                skip: skipAmount,
+                limit: pageSize + 1
             },
             populate: [
                 { path: 'tags', select: "_id name" },
@@ -219,7 +229,9 @@ export async function getSavedQuestions(userId: string, searchQuery: string, fil
             ]
         })
 
-        return user.saved;
+        const isNext = user.saved.length > pageSize;
+
+        return { questions: user.saved, isNext };
 
     } catch (error) {
         console.log(error);
