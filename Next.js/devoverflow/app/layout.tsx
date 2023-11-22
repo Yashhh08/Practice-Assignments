@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import "../styles/prism.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,6 +53,7 @@ export default function RootLayout({
             >
               {children}
               <Analytics />
+              <Toaster />
             </ThemeProvider>
           </body>
         </html>

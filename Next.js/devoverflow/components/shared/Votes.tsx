@@ -11,6 +11,7 @@ import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
+import { toast } from "../ui/use-toast";
 
 interface Props {
   user: any;
@@ -68,7 +69,13 @@ const Votes = (props: Props) => {
           path: pathname,
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Something went wrong!",
+        description: `${error}`,
+      });
+    }
   };
 
   const handleDownvote = async () => {
@@ -86,7 +93,13 @@ const Votes = (props: Props) => {
           path: pathname,
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Something went wrong!",
+        description: `${error}`,
+      });
+    }
   };
 
   const handleSaveQuestion = async () => {
@@ -96,7 +109,13 @@ const Votes = (props: Props) => {
         questionId: question._id,
         path: pathname,
       });
-    } catch (error) {}
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Something went wrong!",
+        description: `${error}`,
+      });
+    }
   };
 
   useEffect(() => {
