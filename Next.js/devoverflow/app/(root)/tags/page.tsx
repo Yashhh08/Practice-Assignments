@@ -1,15 +1,7 @@
 import React from "react";
 import { TagFilters } from "@/constants/filters";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
 import LocalSearch from "@/components/search/LocalSearch";
 import TagCard from "@/components/cards/TagCard";
-import Link from "next/link";
 import { getAllTags } from "@/lib/actions/tag.action";
 import NoResults from "@/components/shared/NoResults";
 import Filter from "@/components/shared/Filter";

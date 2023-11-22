@@ -16,10 +16,10 @@ interface SearchParamsProps {
 export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getQuestions(
     // @ts-ignore
-    searchParams.q, 
+    searchParams.q,
     searchParams.filter,
     searchParams.page ? +searchParams.page : 1
-    );
+  );
 
   return (
     <>
@@ -78,7 +78,10 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       </div>
 
       <div className="">
-        <Pagination page={searchParams.page ? +searchParams.page:1} isNext={result.isNext} />
+        <Pagination
+          page={searchParams.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+        />
       </div>
     </>
   );
