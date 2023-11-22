@@ -18,6 +18,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useTheme } from "next-themes";
 import { createAnswer } from "@/lib/actions/answer.action";
 import { usePathname } from "next/navigation";
+import { toast } from "../ui/use-toast";
 
 const formSchema = z.object({
   answer: z.string().min(2, {}),
@@ -53,6 +54,11 @@ const AnswerForm = (props: Props) => {
         path: pathname,
       });
 
+      toast({
+        variant: "default",
+        title: "Answer submitted successfully!",
+      });
+
       form.reset();
 
       if (editorRef.current) {
@@ -60,6 +66,11 @@ const AnswerForm = (props: Props) => {
         editor.setContent("");
       }
     } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Something went wrong!",
+        description: `${error}`,
+      });
     } finally {
       setIsSubmitting(false);
     }

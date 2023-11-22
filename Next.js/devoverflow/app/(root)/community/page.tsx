@@ -17,7 +17,8 @@ const Page = async ({ searchParams }: Props) => {
     // @ts-ignore
     searchParams.q,
     searchParams.filter,
-    searchParams.page? +searchParams.page : 1);
+    searchParams.page ? +searchParams.page : 1
+  );
 
   return (
     <>
@@ -51,7 +52,10 @@ const Page = async ({ searchParams }: Props) => {
       </div>
 
       <div>
-        <Pagination page={searchParams.page? +searchParams.page : 1} isNext={result.isNext}/>
+        <Pagination
+          page={searchParams.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+        />
       </div>
     </>
   );

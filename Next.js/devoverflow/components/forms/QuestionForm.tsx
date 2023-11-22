@@ -24,6 +24,7 @@ import { createQuestion, updateQuestion } from "@/lib/actions/question.action";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { revalidatePath } from "next/cache";
+import { toast } from "../ui/use-toast";
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -66,6 +67,7 @@ const QuestionForm = (props: Props) => {
     setIsSubmitting(true);
 
     try {
+      
       if (props.type !== "edit") {
         await createQuestion({
           title: values.title,
@@ -73,12 +75,23 @@ const QuestionForm = (props: Props) => {
           tags: values.tags,
           author: JSON.parse(props.userId),
         });
+
+        toast({
+          variant:"default",
+          title:"Question submitted successfully!",
+        })
+
       } else {
         await updateQuestion({
           questionId: questionDetails._id,
           title: values.title,
           content: values.explanation,
         });
+
+        toast({
+          variant:"default",
+          title:"Question updated successfully!",
+        })
       }
 
       form.reset();
@@ -90,6 +103,11 @@ const QuestionForm = (props: Props) => {
 
       router.push("/");
     } catch (error) {
+      toast({
+        variant:"destructive",
+        title:"Something went wrong!",
+        description:`${error}`
+      })
     } finally {
       setIsSubmitting(false);
     }
