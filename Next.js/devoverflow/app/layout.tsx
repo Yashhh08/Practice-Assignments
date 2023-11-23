@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import "../styles/prism.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,10 +22,18 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Dev Overflow",
   description:
-    "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
+    "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures and more.",
   icons: {
     icon: "/assets/images/site-logo.svg",
   },
+  openGraph: {
+    title: "Dev Overflow",
+    description:
+      "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
+    images: [{ url: "/assets/images/DevOverflow-image.png" }],
+  },
+  creator: "Yash Yerunkar",
+  publisher: "Yash Yerunkar",
 };
 
 export default function RootLayout({
@@ -45,12 +55,13 @@ export default function RootLayout({
           <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
             <ThemeProvider
               attribute="class"
-              defaultTheme="system"
+              defaultTheme="dark"
               enableSystem
               disableTransitionOnChange
             >
               {children}
               <Analytics />
+              <Toaster />
             </ThemeProvider>
           </body>
         </html>

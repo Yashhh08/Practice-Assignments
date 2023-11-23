@@ -1,20 +1,25 @@
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import NoResults from "@/components/NoResults";
+
 import QuestionCard from "@/components/cards/QuestionCard";
 import Link from "next/link";
 import { getQuestions } from "@/lib/actions/question.action";
+import NoResults from "@/components/shared/NoResults";
+import Filter from "@/components/shared/Filter";
+import Pagination from "./../../../components/shared/Pagination";
 
-export default async function Home() {
-  const questions = await getQuestions();
+interface SearchParamsProps {
+  searchParams: { [key: string]: string | undefined };
+}
+
+export default async function Home({ searchParams }: SearchParamsProps) {
+  const result = await getQuestions(
+    // @ts-ignore
+    searchParams.q,
+    searchParams.filter,
+    searchParams.page ? +searchParams.page : 1
+  );
 
   return (
     <>
@@ -39,25 +44,12 @@ export default async function Home() {
             otherClasses=""
           />
 
-          <Select>
-            <SelectTrigger className="w-auto max-sm:h-8">
-              <SelectValue placeholder="Filter" />
-            </SelectTrigger>
-            <SelectContent>
-              {HomePageFilters.map((item) => {
-                return (
-                  <SelectItem key={item.name} value={item.value}>
-                    {item.name}
-                  </SelectItem>
-                );
-              })}
-            </SelectContent>
-          </Select>
+          <Filter filter={HomePageFilters} />
         </div>
 
         <div className="flex flex-col justify-center items-center gap-6">
-          {questions.length > 0 ? (
-            questions.map((question) => {
+          {result.questions.length > 0 ? (
+            result.questions.map((question) => {
               return (
                 <QuestionCard
                   key={question._id}
@@ -65,7 +57,7 @@ export default async function Home() {
                   title={question.title}
                   tags={question.tags}
                   author={question.author}
-                  upvotes={question.upvotes}
+                  upvotes={question.upvotes.length}
                   views={question.views}
                   answers={question.answers}
                   createdAt={question.createdAt}
@@ -83,6 +75,13 @@ export default async function Home() {
             />
           )}
         </div>
+      </div>
+
+      <div className="">
+        <Pagination
+          page={searchParams.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+        />
       </div>
     </>
   );

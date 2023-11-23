@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import Link from "next/link";
 
 interface Props {
   title: string;
   desc: string;
-  link: string;
-  linkTitle: string;
+  link?: string;
+  linkTitle?: string;
 }
 
 const NoResults = (props: Props) => {
@@ -25,16 +25,18 @@ const NoResults = (props: Props) => {
         alt="noResults"
         height={200}
         width={200}
-        className="hidden dark:flex"
+        className="hidden dark:block"
       />
 
       <h2 className="text-2xl font-bold">{props.title}</h2>
 
       <p className="max-w-md">{props.desc}</p>
 
-      <Link href={props.link}>
-        <Button>{props.linkTitle}</Button>
-      </Link>
+      {props.link && props.linkTitle && (
+        <Link href={props.link}>
+          <Button>{props.linkTitle}</Button>
+        </Link>
+      )}
     </div>
   );
 };
