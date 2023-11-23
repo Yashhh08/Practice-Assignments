@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "Dev Overflow",
     description:
       "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
-    images: [{ url: "/assets/images/logo.png" }],
+    images: [{ url: "/assets/images/DevOverflow-image.png" }],
   },
   creator: "Yash Yerunkar",
   publisher: "Yash Yerunkar",
