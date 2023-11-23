@@ -15,9 +15,7 @@ const TagCard = ({ tag }: any) => {
           {tag.name}
         </Button>
         <p className="line-clamp-5 text-sm">
-          {tag.description} JavaScript, often abbreviated as JS, is a
-          programming language that is one of the core technologies of the World
-          Wide Web, alongside HTML and CSS
+          {tag.description} {tag.name} tag details and all related questions included here, click to know more.
         </p>
         <p className="text-sm flex justify-center items-center gap-1">
           <span className="text-primary text-lg">{tag.questions.length}</span>{" "}

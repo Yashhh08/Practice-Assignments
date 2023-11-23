@@ -1,13 +1,13 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import RenderTag from "@/components/ui/RenderTag";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
+import { Badge } from "../ui/badge";
 
 const tags = [
-  { _id: "1", name: "Next.js" },
-  { _id: "2", name: "React" },
-  { _id: "3", name: "Mongodb" },
+  { _id: "1", name: "Coding" },
+  { _id: "2", name: "Tech" },
+  { _id: "3", name: "Server" },
 ];
 
 const UserCard = ({ user }: { user: any }) => {
@@ -34,11 +34,13 @@ const UserCard = ({ user }: { user: any }) => {
             tags.map((tag) => {
               return (
                 <div key={tag._id}>
-                  <RenderTag
-                    _id={tag._id}
-                    name={tag.name}
-                    className="w-[70px] flex justify-center items-center truncate"
-                  />
+                  <Link href={`/tags`} className="flex justify-between gap-2">
+                    <Badge
+                      className={`font-medium text-[10px] rounded-md border-none px-4 py-2 uppercase bg-[#F4F6F8] text-[#7B8EC8] dark:bg-[#151821] shadow-lg hover:bg-[F4F6F8]}`}
+                    >
+                      {tag.name}
+                    </Badge>
+                  </Link>
                 </div>
               );
             })
