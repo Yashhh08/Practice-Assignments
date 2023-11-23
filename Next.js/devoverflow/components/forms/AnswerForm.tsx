@@ -80,7 +80,7 @@ const AnswerForm = (props: Props) => {
     <div>
       <div className="flex justify-between items-center mb-5 max-sm:flex-col max-sm:gap-5">
         <p className="font-semibold">Write your answer here</p>
-        <Button variant={"secondary"}>
+        {/* <Button variant={"secondary"}>
           <Image
             src={"/assets/icons/stars.svg"}
             alt="stars"
@@ -89,7 +89,7 @@ const AnswerForm = (props: Props) => {
             className="pr-1"
           />
           Generate AI answer
-        </Button>
+        </Button> */}
       </div>
 
       <Form {...form}>
