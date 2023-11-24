@@ -1,6 +1,6 @@
 # Tech-Skills-Tracker
 
-Welcome to the Tech-Skills-Tracker repository! 🚀 Here, I document my learning journey and showcase projects related to various technologies, including Angular, Node.js, React, and Next.js. Each section in this repository corresponds to a specific technology, and within each section, you'll find projects highlighting my skills and progress.
+Welcome to the Tech-Skills-Tracker repository! 🚀 Here, I document my learning journey and showcase projects related to various technologies, currently including Angular, Node.js, React and Next.js. Each section in this repository corresponds to a specific technology and within each section you'll find projects highlighting my skills and progress.
 
 <!--
 ## Table of Contents-->
