@@ -32,7 +32,7 @@ Welcome to the Tech-Skills-Tracker repository! 🚀 Here, I document my learning
 
 <!--This section features React projects that demonstrate my proficiency in building dynamic and responsive user interfaces.-->
 
-<!--- [React Project 1](./react/project1): Description of the project and its purpose.-->
+[React Project 1](React/filmpire): Description of the project and its purpose.-->
 <!--- [React Project 2](./react/project2): Description of the project and its purpose.-->
 
 <!-- Add more React projects as needed -->
