@@ -32,7 +32,7 @@ Welcome to the Tech-Skills-Tracker repository! 🚀 Here, I document my learning
 
 <!--This section features React projects that demonstrate my proficiency in building dynamic and responsive user interfaces.-->
 
-[React Project 1](React/filmpire): Movie application is a web application where users can explore movies within specific categories and genres. This application provides a visually appealing UI that enhances the user experience. Users can view trailers for upcoming films and access information about the cast, synopsis and more. The backend API for the application is sourced from the OMDb API, which provides reliable and extensive movie data.
+[Filmpire](React/filmpire): Movie application is a web application where users can explore movies within specific categories and genres. This application provides a visually appealing UI that enhances the user experience. Users can view trailers for upcoming films and access information about the cast, synopsis and more. The backend API for the application is sourced from the OMDb API, which provides reliable and extensive movie data.
 <!--- [React Project 2](./react/project2): Description of the project and its purpose.-->
 
 <!-- Add more React projects as needed -->
@@ -41,7 +41,7 @@ Welcome to the Tech-Skills-Tracker repository! 🚀 Here, I document my learning
 
 <!--Check out my Next.js projects, combining React with server-side rendering for efficient and performant web applications.-->
 
-[Next.js Project 1](Next.js/devoverflow): A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms data structures and more.
+[DevOverflow](Next.js/devoverflow): A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms data structures and more.
 <!--- [Next.js Project 2](./nextjs/project2): Description of the project and its purpose.-->
 
 <!-- Add more Next.js projects as needed -->
