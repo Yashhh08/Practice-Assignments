@@ -24,6 +24,7 @@ const Navbar = () => {
               height={23}
               width={23}
               src="/assets/images/site-logo.svg"
+              alt="DevFlow"
             />
             <AvatarFallback>DevFlow</AvatarFallback>
           </Avatar>
@@ -50,6 +51,7 @@ const Navbar = () => {
                       height={30}
                       width={30}
                       src="/assets/icons/account.svg"
+                      alt="profile"
                       className="bg-orange-500 rounded-full"
                     />
                     <AvatarFallback>Sign-In</AvatarFallback>

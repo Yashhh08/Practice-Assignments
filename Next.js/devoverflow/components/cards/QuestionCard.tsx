@@ -74,7 +74,7 @@ const QuestionCard = ({
           <Link href={`/profile/${author.clerkId}`}>
             <div className="flex justify-center items-center gap-1">
               <Avatar className="w-5 h-5">
-                <AvatarImage src={author.picture} />
+                <AvatarImage src={author.picture} alt="user" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <p className="text-sm font-medium">{author.name}</p>
