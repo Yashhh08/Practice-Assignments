@@ -1,6 +1,10 @@
-# Filmpire - Movie Exploration App
+# Filmpire - Movie Exploration App  
 
 Welcome to Filmpire, a dynamic movie exploration application built with React, Redux and Material UI. Dive into the world of cinema, explore movies based on categories and genres and enjoy a visually appealing user interface that enhances your movie discovery experience.
+
+## Live
+
+Explore Filmpire live: [Filmpire](https://yy-filmpire.netlify.app/)
 
 ## Features
 
@@ -18,8 +22,9 @@ Welcome to Filmpire, a dynamic movie exploration application built with React, R
 - **Redux:** State management to keep the application data in sync.
 - **Material UI:** A React UI framework for creating beautiful, responsive applications.
 
-## Live Demo
+## Screenshots
 
-Explore Filmpire live: [Filmpire Demo](https://yy-filmpire.netlify.app/)
+<img src="React/filmpire/public/images/homePage_dark.png" width="300px" height="300px">
 
-Enjoy exploring movies with Filmpire! 🎬🍿
+
+## Enjoy exploring movies with Filmpire! 🎬🍿
