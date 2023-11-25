@@ -24,7 +24,7 @@ Explore Filmpire live: [Filmpire](https://yy-filmpire.netlify.app/)
 
 ## Screenshots
 
-<img src="React/filmpire/public/images/homePage_dark.png" width="300px" height="300px">
+<img src="../public/images/homePage_dark.png" width="300px" height="300px">
 
 
 ## Enjoy exploring movies with Filmpire! 🎬🍿
