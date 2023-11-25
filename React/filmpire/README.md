@@ -26,10 +26,10 @@ Explore Filmpire live: [Filmpire](https://yy-filmpire.netlify.app/)
 
 <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap:20px">
 <img src="./public/images/homePage_light.png" width="500px" height="300px">
-<img src="./public/images/homePage_dark.png" width="550px" height="350px">
-<img src="./public/images/moviesPage.png" width="550px" height="350px">
-<img src="./public/images/movieDetailPage.png" width="550px" height="350px">
-<img src="./public/images/actorDetailPage.png" width="550px" height="350px">
+<img src="./public/images/homePage_dark.png" width="500px" height="300px">
+<img src="./public/images/moviesPage.png" width="500px" height="300px">
+<img src="./public/images/movieDetailPage.png" width="500px" height="300px">
+<img src="./public/images/actorDetailPage.png" width="500px" height="300px">
 </div>
 
 ## Enjoy exploring movies with Filmpire! 🎬🍿
