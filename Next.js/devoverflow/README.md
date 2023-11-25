@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DevOverflow - Community-Driven Programming Platform
 
-## Getting Started
+![demo](https://res.cloudinary.com/dgur3iyy9/image/upload/v1699372466/pffcb0rwxtn6dao1xm83.jpg)
 
-First, run the development server:
+Welcome to DevOverflow, a community-driven platform designed for asking and answering programming questions. Connect with developers worldwide, seek assistance, share knowledge, and collaborate on topics spanning web development, mobile app development, algorithms, data structures and more.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Live
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Explore DevOverflow live: [DevOverflow](https://devoverflow-yy.vercel.app/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **User Authentication:** Create a personalized account to fully engage with the community.
+- **Themes:** Switch between light and dark themes for a comfortable viewing experience.
+- **Multiple Layouts & Grouped Routes:** Explore a well-organized interface with various layout options and grouped routes for intuitive navigation.
+- **Responsive UI:** Enjoy a responsive user interface that adapts seamlessly to different screen sizes.
+- **Form Handling:** Efficiently handle forms for seamless user interactions.
+- **Webhooks for Authentication Service:** Utilize webhooks for streamlined authentication services.
+- **Filter and Search Functionality:** Easily filter and search across pages for quick access to relevant content.
+- **Pagination:** Navigate through content effortlessly with paginated views.
+- **Loading UI:** Experience a user-friendly loading interface for improved responsiveness.
+- **SEO Optimization:** Enhance discoverability.
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js:** A React framework for building server-rendered applications.
+- **Tailwind CSS:** A utility-first CSS framework for building responsive designs.
+- **Shadcn UI:** Add visual appeal with the Shadcn UI component library.
+- **MongoDB:** Store and manage data with the MongoDB database.
+- **Vercel:** Deploy and host your application with Vercel for seamless scalability.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Screenshots
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px;">
+<img src="./public/assets/images/homePage_light.png" width="500px" height="300px">
+<img src="./public/assets/images/homePage_dark.png" width="500px" height="300px">
+<img src="./public/assets/images/communityPage.png" width="500px" height="300px">
+<img src="./public/assets/images/tagPage.png" width="500px" height="300px">
+<img src="./public/assets/images/profilePage.png" width="500px" height="300px">
+<img src="./public/assets/images/askQuestionPage.png" width="500px" height="300px">
 
-## Deploy on Vercel
+</div>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Enjoy exploring DevOverflow!
