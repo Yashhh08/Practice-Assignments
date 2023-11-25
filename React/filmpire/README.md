@@ -24,7 +24,7 @@ Explore Filmpire live: [Filmpire](https://yy-filmpire.netlify.app/)
 
 ## Screenshots
 
-<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap:20px">
+<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap:50px">
 <img src="./public/images/homePage_light.png" width="500px" height="300px">
 <img src="./public/images/homePage_dark.png" width="500px" height="300px">
 <img src="./public/images/moviesPage.png" width="500px" height="300px">
